@@ -10,4 +10,5 @@ protected:
     void Init();
     virtual void Update();
 private:
+    const unsigned char* m_keystates;
 };

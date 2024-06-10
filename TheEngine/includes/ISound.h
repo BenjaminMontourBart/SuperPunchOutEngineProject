@@ -3,6 +3,7 @@
 
 class ISound
 {
+public:
 	virtual size_t LoadMusic(const std::string& filename) = 0;
 	virtual size_t LoadSound(const std::string& filename) = 0;
 	virtual void PlayMusic(size_t id) = 0;

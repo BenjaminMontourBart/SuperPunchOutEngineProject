@@ -395,6 +395,9 @@ namespace Homer
     };
     class IInput
     {
+    /// <summary>
+    /// //////// mes touches
+    /// </summary>
     public:
         virtual int IsKeyDown(int key) = 0;
 

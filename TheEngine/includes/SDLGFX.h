@@ -1,9 +1,35 @@
 #pragma once
 #include "IGFX.h"
+#include "SDL_render.h"
+#include <map>
+#include "Game.h"
+
+struct SDL_Window;
 
 class SDLGFX : public IGFX
 {
 public:
-    virtual void FillRect(float x1, float y1, float x2, float y2) = 0;
-    virtual void DrawLine(float x1, float y1, float x2, float y2) = 0;
+    virtual bool Initialize(const std::string& title, int w, int h);
+    virtual void Shutdown();
+    virtual void SetColor(const Color& color);
+    virtual void Clear();
+    virtual void Present();
+    virtual void DrawRect(float x, float y, float w, float h, const Color& color);
+    virtual void DrawRect(const RectF& rect, const Color& color);
+    virtual void FillRect(int x, int y, int w, int h, const Color& color);
+    virtual void FillRect(const RectF& rect, const Color& color);
+    virtual void DrawLine(float x1, float y1, float x2, float y2, const Color& color);
+    virtual size_t LoadTexture(const std::string& filename);
+    virtual void DrawTexture(size_t id, const RectI& src, const RectF& dst, double angle, const Flip& flip, const Color& color);
+    virtual void DrawTexture(size_t id, const RectF& dst, const Color& color);
+    virtual void DrawTexture(size_t id, const Color& color);
+    virtual void GetTextureSize(size_t id, int* w, int* h);
+    virtual size_t LoadFont(const std::string& filename, int fontSize);
+    virtual void DrawString(const std::string& text, size_t fontId, float x, float y, const Color& color);
+    virtual void GetTextSize(const std::string& text, size_t fontId, int* w, int* h);
+
+private:
+    SDL_Renderer* m_Renderer;
+    SDL_Window* _window;
+    std::map<size_t, SDL_Texture*> m_TextureCache;
 };

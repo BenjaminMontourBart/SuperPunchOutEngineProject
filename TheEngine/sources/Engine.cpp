@@ -1,16 +1,35 @@
 #include "Engine.h"
+#include "Game.h"
 #include <time.h>
 #include "Windows.h"
 #include <iostream>
 #include <fstream>
+#include "SDLInput.h"
+#include "SDLGFX.h"
+#include "Console.h"
+#include "Audio.h"
+
+
+static Game* m_Game = nullptr;
+
+Homer::Engine& Homer::Engine::Get()
+{
+	static Engine Instance;
+	return Instance;
+}
 
 bool Homer::Engine::Init(const std::string& title, int w, int h)
 {
-
-	m_Game = new Game;
+	m_Audio = new Audio;
+	m_Gfx = new SDLGFX();
+	m_Gfx->Initialize(title, w, h);
+	m_Input = new SDLInput();
+	m_Logger = new Console();
+	m_Game = new Game();
 	m_Game->Init(title, w, h);
 
 	Timer = 0;
+	m_IsInit = true;
 
 	return true;
 }
@@ -24,21 +43,8 @@ void Homer::Engine::Start()
 			return;
 		}
 	}
-
 	m_IsRunning = true;
 
-	///////////////
-	/*Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-	Mix_Music *music; 
-	music = Mix_LoadMUS("music.mp3");
-	Mix_CloseAudio();*/
-	///
-	/*TTF_Font* _font = TTF_OpenFont(filename.c_str(), fontSize);
-	if (m_FontCache.count(fontId) > 0)
-	{
-		TTF_Font* _font = m_FontCache[fontId];
-		SDL_Surface* _surface = TTF_RenderText_Solid(_font, text.c_str(), _color);
-	}*/
 	///
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	///
@@ -50,7 +56,7 @@ void Homer::Engine::Start()
 	////////////////
 
 
-	AllocConsole();
+
 	clock_t _end = clock();
 	////////////////////////////////////////// IsRunning(TheGame Run Here) ////////////////
 	while (m_IsRunning)
@@ -58,13 +64,13 @@ void Homer::Engine::Start()
 		const clock_t start = clock();
 		/////////////////////////////////////////// Calcul du DeltaTime /////////////
 		float _dt = (start - _end) * 0.001f;
-
+		m_Input->Update();
 		Update(_dt);
 		m_Game->Update(_dt);
 		Render();
 		////////////////////////////////////////// la difference entre 2 frame /////////////
 		SleepTime = 16.6f - (_dt * 1000);
-		if (SleepTime > 0)
+		if (SleepTime > 0.0f)
 		{
 			Sleep(SleepTime);
 		}
@@ -76,7 +82,7 @@ void Homer::Engine::Start()
 
 void Homer::Engine::Update(float dt)
 {
-	Exit();
+	//Exit();
 }
 
 void Homer::Engine::Render()
@@ -86,11 +92,10 @@ void Homer::Engine::Render()
 
 void Homer::Engine::Shutdown()
 {
-	FreeConsole();
-
+	
 }
 
-void Homer::Engine::Exit()
+void Homer::Engine::Exit(bool exit)
 {
-	m_IsRunning = m_Game->Exit();
+	m_IsRunning = exit;
 }

@@ -1,5 +1,5 @@
 build
-Deployment
+Deployment/**
 .vs
 !Deployment/assets
 !Deployment/assets/**
