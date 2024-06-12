@@ -2,9 +2,11 @@
 #include "IGFX.h"
 #include "SDL_render.h"
 #include <map>
-#include "Game.h"
 
 struct SDL_Window;
+struct SDL_Renderer;
+struct SDL_Texture;
+typedef struct _TTF_Font TTF_Font;
 
 class SDLGFX : public IGFX
 {
@@ -30,6 +32,8 @@ public:
 
 private:
     SDL_Renderer* m_Renderer;
-    SDL_Window* _window;
+    SDL_Window* m_Window;
+
     std::map<size_t, SDL_Texture*> m_TextureCache;
+    std::map<size_t, TTF_Font*> m_FontCache;
 };

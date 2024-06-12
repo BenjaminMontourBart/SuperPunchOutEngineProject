@@ -1,67 +1,93 @@
 #include "Audio.h"
 
-Audio::Audio()
+
+Homer::Audio::Audio()
 {
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-	music = Mix_LoadMUS("CottonEyeJoe.mp3");
-	sound = Mix_LoadWAV("Chipeur.mp3");
-	
 }
 
-Audio::~Audio()
+Homer::Audio::~Audio()
 {
 	Mix_CloseAudio();
 }
 
-size_t Audio::LoadMusic(const std::string& filename)
+size_t Homer::Audio::LoadMusic(const std::string& filename)
 {
-	return size_t();
-}
-
-size_t Audio::LoadSound(const std::string& filename)
-{
-	return size_t();
-}
-
-void Audio::PlayMusic(size_t id)
-{
-	Mix_PlayMusic(music, id);
-}
-
-void Audio::PlayMusic(size_t id, int loop)
-{
-}
-
-void Audio::PlaySFX(size_t id)
-{
-	if (!Mix_Playing(1))
+	const size_t _musId = std::hash<std::string>()(filename);
+	if (m_MusicCache.count(_musId) > 0)
 	{
-		Mix_PlayChannel(-1, sound, id);
-
+		return _musId;
 	}
+
+	Mix_Music* _mus = Mix_LoadMUS(filename.c_str());
+	if (_mus)
+	{
+		m_MusicCache.emplace(_musId, _mus);
+		return _musId;
+	}
+
+	return 0;
 }
 
-void Audio::PlaySFX(size_t id, int loop)
+size_t Homer::Audio::LoadSound(const std::string& filename)
 {
+	const size_t _sfxId = std::hash<std::string>()(filename);
+	if (m_SoundCache.count(_sfxId) > 0)
+	{
+		return _sfxId;
+	}
+
+	Mix_Chunk* _sfx = Mix_LoadWAV(filename.c_str());
+	if (_sfx)
+	{
+		m_SoundCache.emplace(_sfxId, _sfx);
+		return _sfxId;
+	}
+
+	return 0;
 }
 
-void Audio::PauseMusic()
+void Homer::Audio::PlayMusic(size_t id)
 {
+	PlayMusic(id, -1);
 }
 
-void Audio::StopMusic()
+void Homer::Audio::PlayMusic(size_t id, int loop)
 {
+	Mix_PlayMusic(m_MusicCache[id], loop);
 }
 
-void Audio::ResumeMusic()
+void Homer::Audio::PlaySFX(size_t id)
 {
+	PlaySFX(id, 0);
 }
 
-void Audio::SetVolume(int volume)
+void Homer::Audio::PlaySFX(size_t id, int loop)
 {
-	sound->volume = volume;
+	Mix_PlayChannel(-1, m_SoundCache[id], loop);
 }
 
-void Audio::SetVolume(size_t soundId, int volume)
+void Homer::Audio::PauseMusic()
 {
+	Mix_PauseMusic();
+}
+
+void Homer::Audio::StopMusic()
+{
+	Mix_HaltMusic();
+}
+
+void Homer::Audio::ResumeMusic()
+{
+	Mix_ResumeMusic();
+}
+
+void Homer::Audio::SetVolume(int volume)
+{
+	Mix_VolumeMusic(volume);
+}
+
+void Homer::Audio::SetVolume(size_t soundId, int volume)
+{
+	Mix_VolumeChunk(m_SoundCache[soundId], volume);
 }

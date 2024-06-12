@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
-
-struct RectI;
-struct RectF;
-struct Flip;
-class Color;
+#include <RectI.h>
+#include <RectF.h>
+#include <Color.h>
+#include <Flip.h>
 
 class IGFX
 {
@@ -37,23 +36,4 @@ public:
         
     virtual void GetTextSize(const std::string& text, size_t fontId, int* w, int* h) = 0;
 
-};
-struct RectI
-{
-    int x;
-    int y;
-    int w;
-    int h;
-};
-struct RectF
-{
-    float x;
-    float y;
-    float w;
-    float h;
-};
-struct Flip
-{
-    int x;
-    int y;
 };
