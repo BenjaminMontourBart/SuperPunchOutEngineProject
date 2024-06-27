@@ -8,6 +8,8 @@
 #include "SDLGFX.h"
 #include "Console.h"
 #include "Audio.h"
+#include "Collision.h"
+#include "WorldService.h"
 
 
 static Game* m_Game = nullptr;
@@ -18,13 +20,50 @@ Homer::Engine& Homer::Engine::Get()
 	return Instance;
 }
 
+Homer::Engine::~Engine()
+{
+	if (m_Audio != nullptr)
+	{
+		delete m_Audio;
+		m_Audio = nullptr;
+	}
+	if (m_Logger != nullptr)
+	{
+		delete m_Logger;
+		m_Logger = nullptr;
+	}
+	if (m_Gfx != nullptr)
+	{
+		delete m_Gfx;
+		m_Gfx = nullptr;
+	}
+	if (m_Input != nullptr)
+	{
+		delete m_Input;
+		m_Input = nullptr;
+	}
+	if (m_Collide != nullptr)
+	{
+		delete m_Collide;
+		m_Collide = nullptr;
+	}
+	if (m_World != nullptr)
+	{
+		delete m_World;
+		m_World = nullptr;
+	}
+	
+}
+
 bool Homer::Engine::Init(const std::string& title, int w, int h)
 {
+	m_World = new WorldService;
 	m_Audio = new Audio;
 	m_Gfx = new SDLGFX();
 	m_Gfx->Initialize(title, w, h);
 	m_Input = new SDLInput();
 	m_Logger = new Console();
+	m_Collide = new Collision();
 	m_Game = new Game();
 	m_Game->Init(title, w, h);
 

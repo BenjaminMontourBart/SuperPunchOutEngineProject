@@ -9,6 +9,17 @@ Homer::Audio::Audio()
 Homer::Audio::~Audio()
 {
 	Mix_CloseAudio();
+	if (m_SoundCache.size() > 0)
+	{
+		delete &m_SoundCache;
+		m_SoundCache = std::map<size_t, Mix_Chunk*>();
+	}
+	if (m_MusicCache.size() > 0)
+	{
+		delete& m_MusicCache;
+		m_MusicCache = std::map<size_t, Mix_Music*>();
+	}
+	
 }
 
 size_t Homer::Audio::LoadMusic(const std::string& filename)

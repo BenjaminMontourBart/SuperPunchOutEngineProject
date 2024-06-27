@@ -7,9 +7,12 @@
 
 class WorldService : public IWorld
 {
+    ~WorldService();
     virtual void Add(Entity* entity) override;
     virtual Entity* Find(std::string name) override;
     virtual void Remove(Entity* entity) override;
+    virtual void Load(const char* scene) override;
+    virtual void Register(const char* name, IScene* scene) override;
     void Update(float dt);
     void Draw();
 

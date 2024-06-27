@@ -11,6 +11,7 @@ typedef struct _TTF_Font TTF_Font;
 class SDLGFX : public IGFX
 {
 public:
+    ~SDLGFX();
     virtual bool Initialize(const std::string& title, int w, int h);
     virtual void Shutdown();
     virtual void SetColor(const Color& color);

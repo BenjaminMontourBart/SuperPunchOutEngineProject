@@ -6,6 +6,30 @@
 #include "Engine.h"
 
 
+SDLGFX::~SDLGFX()
+{
+	if (m_Window != nullptr)
+	{
+		delete m_Window;
+		m_Window = nullptr;
+	}
+	if (m_Renderer != nullptr)
+	{
+		delete m_Renderer;
+		m_Renderer = nullptr;
+	}
+	if (m_TextureCache.size() > 0)
+	{
+		delete &m_TextureCache;
+		m_TextureCache = std::map<size_t, SDL_Texture*>();
+	}
+	if (m_FontCache.size() > 0)
+	{
+		delete &m_FontCache;
+		m_FontCache = std::map<size_t, TTF_Font*>();
+	}
+}
+
 bool SDLGFX::Initialize(const std::string& title, int w, int h)
 {
 

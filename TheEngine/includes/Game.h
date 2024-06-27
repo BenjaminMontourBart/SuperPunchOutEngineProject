@@ -1,20 +1,21 @@
 #pragma once
 #include <string>
+#include <vector>
 #include "ISound.h"
+#include "Entity.h"
 
 class Game
 {
 public:
 
-	void Init(const std::string& title, int w, int h);
+	Game();
+	~Game();
+	void Init(const std::string title, int w, int h);
 	void Update(float dt);
 	void Render();
 
 private:
+	Entity* m_Entity;
 
-	float Speed = 100;
-	float MoveX;
-	float MoveY;
-	float H = 200;
-	float W = 200;
+	std::vector<Entity*> m_EntityVector;
 };

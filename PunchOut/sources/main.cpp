@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include "Engine.h"
 
-#ifdef DEBUG
+#ifdef _DEBUG
 
 #include "vld.h"
 
