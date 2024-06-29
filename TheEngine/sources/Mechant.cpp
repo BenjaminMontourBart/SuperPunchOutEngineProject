@@ -17,6 +17,7 @@ void Mechant::Start()
 
 void Mechant::Update(float dt)
 {
+	Engine::Get().Collide().RectCollider(EnemyType, m_X, m_Y, W, H);
 }
 
 void Mechant::Draw()

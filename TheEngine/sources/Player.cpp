@@ -18,6 +18,7 @@ void Player::Start()
 
 void Player::Update(float dt)
 {
+	Engine::Get().Collide().RectCollider(PlayerType, m_X, m_Y, W, H);
 	if (Engine::Get().Input().IsKeyDown(Homer::MyKey_W))
 	{
 		m_Y -= Speed * dt;

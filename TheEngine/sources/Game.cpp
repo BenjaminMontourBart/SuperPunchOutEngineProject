@@ -34,10 +34,9 @@ void Game::Init(const std::string title, int w, int h)
 
 	m_Entity = new Player(300, 300, 200, 200);
 	m_EntityVector.push_back(m_Entity);
-	Engine::Get().Collide().RectCollider(300, 300, 200, 200);
 	m_Entity = new Mechant(100, 100, 100, 100);
 	m_EntityVector.push_back(m_Entity);
-	Engine::Get().Collide().RectCollider(100, 100, 100, 100);
+	
 }
 
 void Game::Update(float dt)
