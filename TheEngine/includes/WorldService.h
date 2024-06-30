@@ -19,4 +19,7 @@ class WorldService : public IWorld
     private:
     std::vector<Entity*> m_EntitiesInWorld = std::vector<Entity*>();
     std::map<const char*, Entity*> m_EntitiesDict;
+
+    std::map<std::string, IScene*> m_Scenes;
+    IScene* m_CurrentScene = nullptr;
 };
