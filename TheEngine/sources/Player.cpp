@@ -1,14 +1,16 @@
 #include "Player.h"
 #include "Engine.h"
+#include <string>
 
 using namespace Homer;
 
-Player::Player(int x, int y, int w, int h)
+Player::Player(int x, int y, int w, int h, char* name)
 {
 	m_X = x;
 	m_Y = y;
 	W = w;
 	H = h;
+	m_name = name;
 }
 
 void Player::Start()

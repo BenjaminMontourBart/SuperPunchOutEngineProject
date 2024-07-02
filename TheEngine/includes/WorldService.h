@@ -13,8 +13,9 @@ class WorldService : public IWorld
     virtual void Remove(Entity* entity) override;
     virtual void Load(const char* scene) override;
     virtual void Register(const char* name, IScene* scene) override;
-    void Update(float dt);
-    void Draw();
+    virtual void Unload() override;
+    virtual void Update(float dt) override;
+    virtual void Draw() override;
 
     private:
     std::vector<Entity*> m_EntitiesInWorld = std::vector<Entity*>();

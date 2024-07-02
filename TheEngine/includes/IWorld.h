@@ -11,4 +11,7 @@ class IWorld
     virtual void Remove(Entity* entity) = 0;
     virtual void Load(const char* scene) = 0;
     virtual void Register(const char* name, IScene* scene) = 0;
+    virtual void Unload() = 0;
+    virtual void Update(float dt) = 0;
+    virtual void Draw() = 0;
 };

@@ -3,12 +3,13 @@
 
 using namespace Homer;
 
-Mechant::Mechant(int x, int y, int w, int h)
+Mechant::Mechant(int x, int y, int w, int h, char* name)
 {
 	m_X = x;
 	m_Y = y;
 	W = w;
 	H = h;
+	m_name = name;
 }
 
 void Mechant::Start()

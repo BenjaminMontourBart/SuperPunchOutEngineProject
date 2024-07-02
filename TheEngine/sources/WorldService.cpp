@@ -41,6 +41,8 @@ void WorldService::Load(const char* scene)
 {
 	if (m_Scenes.count(scene) > 0)
 	{
+		Unload();
+		m_CurrentScene = m_Scenes[scene];
 		m_Scenes[scene]->Load();
 	}
 }
@@ -51,28 +53,20 @@ void WorldService::Register(const char* name, IScene* scene)
 		m_Scenes[name] = scene;
 	}
 }
-//void World::Unload()
-//{
-//	if (m_CurrentScene != nullptr)
-//	{
-//		for (auto entity : m_EntityInWorld)
-//		{
-//			entity->Destroy();
-//			delete entity;
-//		}
-//		m_EntityInWorld.clear();
-//		m_EntityMap.clear();
-//	}
-//}
-//void World::Load(const std::string& scene)
-//{
-//	if (m_Scenes.count(scene) > 0)
-//	{
-//		Unload();
-//		m_CurrentScene = m_Scenes[scene];
-//		m_CurrentScene->Load();
-//	}
-//}
+void WorldService::Unload()
+{
+	if (m_CurrentScene != nullptr)
+	{
+		for (auto entity : m_EntitiesInWorld)
+		{
+			entity->Destroy();
+			delete entity;
+		}
+		m_EntitiesInWorld.clear();
+		m_EntitiesDict.clear();
+	}
+}
+
 void WorldService::Update(float dt)
 {
 	for (auto entity : m_EntitiesInWorld)
@@ -82,6 +76,7 @@ void WorldService::Update(float dt)
 }
 void WorldService::Draw()
 {
+	m_CurrentScene->Draw();
 	for (auto entity : m_EntitiesInWorld)
 	{
 		entity->Draw();

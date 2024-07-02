@@ -11,6 +11,6 @@ public:
 	const char* GetName() { return m_name; }
 
 
-private:
-	const char* m_name;
+protected:
+	char* m_name;
 };

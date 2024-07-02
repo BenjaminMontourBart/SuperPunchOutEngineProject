@@ -5,7 +5,7 @@ class Player :
     public Entity
 {
 public:
-    Player(int x, int y, int w, int h);
+    Player(int x, int y, int w, int h, char* name);
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;

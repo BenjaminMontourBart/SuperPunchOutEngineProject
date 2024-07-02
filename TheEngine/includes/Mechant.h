@@ -5,7 +5,7 @@ class Mechant :
     public Entity
 {
 public:
-    Mechant(int x, int y, int w, int h);
+    Mechant(int x, int y, int w, int h, char* name);
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;
