@@ -1,20 +1,22 @@
 #pragma once
-#include "Entity.h"
+#include "Component.h"
+
 
 class Player :
-    public Entity
+    public Component,
+    public IUpdatable,
+    public IDrawable
 {
 public:
-    Player(int x, int y, int w, int h, char* name);
-    virtual void Start() override;
-    virtual void Update(float dt) override;
-    virtual void Draw() override;
-    virtual void Destroy() override;
+    Player() = default;
+    virtual void Start(int x, int y, int w, int h);
+    virtual void Update(float dt);
+    virtual void Draw();
 private:
     float m_X = 0.0f;
     float m_Y = 0.0f;
-    float Speed = 100;
     float H = 200;
     float W = 200;
+    float Speed = 100;
 };
 

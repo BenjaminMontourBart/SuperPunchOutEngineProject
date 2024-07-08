@@ -6,7 +6,8 @@
 class IWorld
 {
     public:
-    virtual void Add(Entity* entity) = 0;
+    //virtual void Add(Entity* entity) = 0;
+    virtual Entity* Create(const char* name) = 0;
     virtual Entity* Find(std::string name) = 0;
     virtual void Remove(Entity* entity) = 0;
     virtual void Load(const char* scene) = 0;

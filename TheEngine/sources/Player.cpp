@@ -4,18 +4,13 @@
 
 using namespace Homer;
 
-Player::Player(int x, int y, int w, int h, char* name)
+
+void Player::Start(int x, int y, int w, int h)
 {
 	m_X = x;
 	m_Y = y;
 	W = w;
 	H = h;
-	m_name = name;
-}
-
-void Player::Start()
-{
-
 }
 
 void Player::Update(float dt)
@@ -51,7 +46,4 @@ void Player::Draw()
 	Engine::Get().Gfx().DrawTexture(_Ptexture, Rect, Red);
 }
 
-void Player::Destroy()
-{
-}
 

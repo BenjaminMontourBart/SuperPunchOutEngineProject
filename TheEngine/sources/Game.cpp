@@ -46,7 +46,6 @@ void Game::Update(float dt)
 	}
 #endif
 
-
 }
 
 void Game::Render()

@@ -14,9 +14,15 @@ WorldService::~WorldService()
 	}
 }
 
-void WorldService::Add(Entity* entity)
+//void WorldService::Add(Entity* entity)
+//{
+//	m_EntitiesInWorld.push_back(entity);
+//}
+Entity* WorldService::Create(const char* name)
 {
-	m_EntitiesInWorld.push_back(entity);
+	Entity* _e = new Entity(name);
+	//Add(_e);
+	return _e;
 }
 Entity* WorldService::Find(std::string name)
 {
@@ -59,7 +65,7 @@ void WorldService::Unload()
 	{
 		for (auto entity : m_EntitiesInWorld)
 		{
-			entity->Destroy();
+			//entity->Destroy();
 			delete entity;
 		}
 		m_EntitiesInWorld.clear();
@@ -71,7 +77,7 @@ void WorldService::Update(float dt)
 {
 	for (auto entity : m_EntitiesInWorld)
 	{
-		entity->Update(dt);
+		//entity->Update(dt);
 	}
 }
 void WorldService::Draw()
@@ -79,6 +85,6 @@ void WorldService::Draw()
 	m_CurrentScene->Draw();
 	for (auto entity : m_EntitiesInWorld)
 	{
-		entity->Draw();
+		//entity->Draw();
 	}
 }
