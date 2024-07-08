@@ -4,6 +4,10 @@
 using namespace Homer;
 
 
+Mechant::~Mechant()
+{
+}
+
 void Mechant::Start(int x, int y, int w, int h)
 {
 	m_X = x;
@@ -14,7 +18,10 @@ void Mechant::Start(int x, int y, int w, int h)
 
 void Mechant::Update(float dt)
 {
-	Engine::Get().Collide().RectCollider(EnemyType, m_X, m_Y, W, H);
+	if (Engine::Get().Collide().RectCollider(EnemyType, m_X, m_Y, W, H) == true)
+	{
+
+	}
 }
 
 void Mechant::Draw()

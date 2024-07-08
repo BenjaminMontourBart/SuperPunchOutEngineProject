@@ -74,6 +74,8 @@ void SDLGFX::SetColor(const Color& color)
 void SDLGFX::Clear()
 {
 	SDL_RenderClear(m_Renderer);
+	m_TextureCache.clear();
+	m_FontCache.clear();
 }
 
 void SDLGFX::Present()

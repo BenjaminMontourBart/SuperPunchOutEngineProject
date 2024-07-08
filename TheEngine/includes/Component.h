@@ -1,7 +1,6 @@
 #pragma once
-#include "Entity.h"
-#include "IUpdatable.h"
-#include "IDrawable.h"
+
+class Entity;
 
 class Component
 {

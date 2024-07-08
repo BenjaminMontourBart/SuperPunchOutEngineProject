@@ -1,5 +1,13 @@
 #include "Entity.h"
 
+Entity::~Entity()
+{
+	for (auto& i : m_Components)
+	{
+		delete i.second;
+	}
+}
+
 Entity::Entity(const char* name)
 	:m_Name(name)
 {

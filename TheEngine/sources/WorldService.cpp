@@ -4,24 +4,29 @@ WorldService::~WorldService()
 {
 	if (m_EntitiesInWorld.size() > 0)
 	{
-		delete& m_EntitiesInWorld;
-		m_EntitiesInWorld = std::vector<Entity*>();
+		m_EntitiesInWorld.clear();
 	}
 	if (m_EntitiesDict.size() > 0)
 	{
-		delete& m_EntitiesDict;
-		m_EntitiesDict = std::map<const char*, Entity*>();
+		for (auto& i : m_EntitiesDict)
+		{
+			delete i.second;
+		}
+	}
+	if (m_Scenes.size() > 0)
+	{
+		m_Scenes.clear();
 	}
 }
 
-//void WorldService::Add(Entity* entity)
-//{
-//	m_EntitiesInWorld.push_back(entity);
-//}
+void WorldService::Add(Entity* entity)
+{
+	m_EntitiesInWorld.push_back(entity);
+}
 Entity* WorldService::Create(const char* name)
 {
 	Entity* _e = new Entity(name);
-	//Add(_e);
+	Add(_e);
 	return _e;
 }
 Entity* WorldService::Find(std::string name)
@@ -45,18 +50,26 @@ void WorldService::Remove(Entity* entity)
 }
 void WorldService::Load(const char* scene)
 {
-	if (m_Scenes.count(scene) > 0)
+	if (m_CurrentScene != m_Scenes[scene])
 	{
 		Unload();
-		m_CurrentScene = m_Scenes[scene];
-		m_Scenes[scene]->Load();
+
+		if (m_Scenes.count(scene) > 0)
+		{
+			m_CurrentScene = m_Scenes[scene];
+			m_Scenes[scene]->Load();
+		}
 	}
 }
 void WorldService::Register(const char* name, IScene* scene)
 {
-	if (m_Scenes.count(name) == 0)
+	if (m_Scenes.count(name) > 0)
 	{
-		m_Scenes[name] = scene;
+		Load(name);
+	}
+	else
+	{
+		m_Scenes.emplace(name, scene);
 	}
 }
 void WorldService::Unload()
@@ -65,7 +78,6 @@ void WorldService::Unload()
 	{
 		for (auto entity : m_EntitiesInWorld)
 		{
-			//entity->Destroy();
 			delete entity;
 		}
 		m_EntitiesInWorld.clear();
@@ -77,7 +89,7 @@ void WorldService::Update(float dt)
 {
 	for (auto entity : m_EntitiesInWorld)
 	{
-		//entity->Update(dt);
+		entity->Update(dt);
 	}
 }
 void WorldService::Draw()
@@ -85,6 +97,6 @@ void WorldService::Draw()
 	m_CurrentScene->Draw();
 	for (auto entity : m_EntitiesInWorld)
 	{
-		//entity->Draw();
+		entity->Draw();
 	}
 }

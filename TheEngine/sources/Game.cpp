@@ -17,13 +17,14 @@ Game::Game()
 
 Game::~Game()
 {
-
+	Engine::Get().Gfx().Clear();
 }
 void Game::Init(const std::string title, int w, int h)
 {
 	Engine::Get().Exit(true);
 
 	Engine::Get().World().Register("Scene", new Scene());
+	Engine::Get().World().Register("SceneTest", new SceneTest());
 	Engine::Get().World().Load("Scene");
 }
 
@@ -33,9 +34,9 @@ void Game::Update(float dt)
 
 	if (Engine::Get().Input().IsKeyDown(Homer::MyKey_P))
 	{
-		Engine::Get().World().Register("SceneTest", new SceneTest());
+		Engine::Get().Gfx().Clear();
 		Engine::Get().World().Load("SceneTest");
-		std::cout << "allo" << std::endl;
+
 	}
 
 
@@ -50,10 +51,6 @@ void Game::Update(float dt)
 
 void Game::Render()
 {
-
-	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
-	Engine::Get().Gfx().Clear();
-	Engine::Get().Gfx().DrawString("Skibidi dub dub dub yes yes", _Font, 200, 10, Red);
 	Engine::Get().World().Draw();
 	Engine::Get().Gfx().Present();
 }

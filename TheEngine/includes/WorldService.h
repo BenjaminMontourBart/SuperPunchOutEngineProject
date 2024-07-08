@@ -8,7 +8,7 @@
 class WorldService : public IWorld
 {
     ~WorldService();
-    //virtual void Add(Entity* entity) override;
+    virtual void Add(Entity* entity) override;
     virtual Entity* Create(const char* name) override;
     virtual Entity* Find(std::string name) override;
     virtual void Remove(Entity* entity) override;

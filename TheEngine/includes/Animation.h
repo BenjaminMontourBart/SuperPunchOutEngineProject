@@ -1,10 +1,12 @@
 #pragma once
-#include "Sprite.h"
+#include "Atlas.h"
 #include <string>
 
-class Animation :
-    public Sprite
+class Animation:
+    public Atlas,
+    public  IUpdatable
 {
+    void Update(float dt) override;
     void InitAnimation(int frameInRows, int frameWidth, int frameHeight);
     void AddClip(const std::string& name, int start, int count, float delay);
     void Stop();

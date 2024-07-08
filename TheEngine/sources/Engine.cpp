@@ -61,9 +61,9 @@ bool Homer::Engine::Init(const std::string& title, int w, int h)
 	m_Audio = new Audio;
 	m_Gfx = new SDLGFX();
 	m_Gfx->Initialize(title, w, h);
-	m_Input = new SDLInput();
-	m_Logger = new Console();
 	m_Collide = new Collision();
+	m_Logger = new Console();
+	m_Input = new SDLInput();
 	m_Game = new Game();
 	m_Game->Init(title, w, h);
 
@@ -121,7 +121,6 @@ void Homer::Engine::Start()
 
 void Homer::Engine::Update(float dt)
 {
-	//Exit();
 }
 
 void Homer::Engine::Render()
@@ -131,7 +130,7 @@ void Homer::Engine::Render()
 
 void Homer::Engine::Shutdown()
 {
-	
+	delete m_Game;
 }
 
 void Homer::Engine::Exit(bool exit)

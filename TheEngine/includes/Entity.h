@@ -1,42 +1,49 @@
 #pragma once
-#include "Component.h"
+#include "IDrawable.h"
+#include "IUpdatable.h"
 #include <vector>
 #include <map>
+
+class Component;
 
 class Entity
 {
 public:
-	~Entity() = default;
+	~Entity();
 	Entity(const char* name);
 	const char* GetName() { return m_Name; }
 	void Update(float dt);
 	void Draw();
 	template<typename T>T* AddComponent()
 	{
-		Component* cmp = new T();
-		m_Components.emplace_back(cmp);
+		T* cmp = new T();
+		const type_info* type = &typeid(*cmp);
+		m_Components.emplace(type, cmp);
+		IUpdatable* update = dynamic_cast<IUpdatable*>(cmp);
+		if (update != nullptr)
+		{
+			m_Update.push_back(update);
+		}
+		IDrawable* draw = dynamic_cast<IDrawable*>(cmp);
+		if (draw != nullptr)
+		{
+			m_Draw.push_back(draw);
+		}
+		return cmp;
 	}
+	template<typename T>T* GetComponent()
+	{
+		const type_info* type = &typeid(T);
+		return m_Components.at(type);
+	}
+
+
 private:
 
 	std::map<const type_info*, Component*> m_Components;
 	std::vector<IUpdatable*> m_Update;
 	std::vector<IDrawable*> m_Draw;
+
 	const char* m_Name;
 
 };
-
-
-//class Entity
-//{
-//public:
-//	virtual ~Entity() = default;
-//	virtual void Start() {}
-//	virtual void Update(float dt) {}
-//	virtual void Draw() {}
-//	virtual void Destroy() {}
-//	const char* GetName() { return m_name; }
-//
-//
-//protected:
-//	char* m_name;
-//};

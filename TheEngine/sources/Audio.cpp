@@ -9,15 +9,14 @@ Homer::Audio::Audio()
 Homer::Audio::~Audio()
 {
 	Mix_CloseAudio();
-	if (m_SoundCache.size() > 0)
+	for (auto& i : m_SoundCache)
 	{
-		delete &m_SoundCache;
-		m_SoundCache = std::map<size_t, Mix_Chunk*>();
+		Mix_FreeChunk(i.second);
 	}
-	if (m_MusicCache.size() > 0)
+
+	for (auto& i : m_MusicCache)
 	{
-		delete& m_MusicCache;
-		m_MusicCache = std::map<size_t, Mix_Music*>();
+		Mix_FreeMusic(i.second);
 	}
 	
 }

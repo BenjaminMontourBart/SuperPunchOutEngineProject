@@ -1,10 +1,15 @@
 #pragma once
 #include "Component.h"
+#include "IDrawable.h"
+#include "IUpdatable.h"
 
 class Mechant :
-    public Component
+    public Component,
+    public IUpdatable,
+    public IDrawable
 {
 public:
+    ~Mechant();
     Mechant() = default;
     virtual void Start(int x, int y, int w, int h);
     virtual void Update(float dt);

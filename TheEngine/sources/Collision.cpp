@@ -15,7 +15,6 @@ bool Collision::RectCollider(ColliderType type, float x, float y, float h, float
 	}
 
 
-
 	if (m_CollideMap.size() > 1)
 	{
 		std::map<ColliderType, RectF>::iterator it;
