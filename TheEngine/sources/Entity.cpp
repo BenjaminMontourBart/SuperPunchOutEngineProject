@@ -17,14 +17,31 @@ void Entity::Update(float dt)
 {
 	for (auto& i : m_Update)
 	{
-		i->Update(dt);
+		if (i != nullptr)
+		{
+			i->Update(dt);
+		}
+		else
+		{
+			delete i;
+		}
 	}
 }
 
 void Entity::Draw()
 {
-	for (auto& i : m_Draw)
+	if (!m_Draw.empty())
 	{
-		i->Draw();
+		for (auto& i : m_Draw)
+		{
+			//if (i->Draw())
+			//{
+				i->Draw();
+			//}
+			//else
+			//{
+			//	delete i;
+			//}
+		}
 	}
 }
