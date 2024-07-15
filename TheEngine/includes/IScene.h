@@ -2,16 +2,18 @@
 #include "Entity.h"
 #include <vector>
 
-
-class IScene
+namespace Homer
 {
-public:
-    virtual ~IScene() = default;
-    virtual void Load() = 0;
-    virtual void Draw() = 0;
+    class IScene
+    {
+    public:
+        virtual ~IScene() = default;
+        virtual void Load() = 0;
+        virtual void Draw() = 0;
 
-protected:
-    Entity* m_Entity;
+    protected:
+        Entity* m_Entity;
 
-    std::vector<Entity*> m_EntityVector;
-};
+        std::vector<Entity*> m_EntityVector;
+    };
+}

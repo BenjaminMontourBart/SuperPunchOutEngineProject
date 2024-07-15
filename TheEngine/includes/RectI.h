@@ -1,9 +1,12 @@
 #pragma once
 
-struct RectI
+namespace Homer
 {
-    int x;
-    int y;
-    int w;
-    int h;
-};
+    struct RectI
+    {
+        int x;
+        int y;
+        int w;
+        int h;
+    };
+}

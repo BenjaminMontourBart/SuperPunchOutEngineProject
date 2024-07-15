@@ -6,29 +6,7 @@ using namespace Homer;
 
 Scene::~Scene()
 {
-	/*if (m_EntityVector.size() != 0)
-	{
-		m_EntityVector.clear();
-	}
-	if (entity.size() != 0)
-	{
-		entity.clear();
-	}
-	if (player != nullptr)
-	{
-		delete player;
-		player = nullptr;
-	}
-	if (enemy != nullptr)
-	{
-		delete enemy;
-		enemy = nullptr;
-	}
-	if (m_Entity != nullptr)
-	{
-		delete m_Entity;
-		m_Entity = nullptr;
-	}*/
+
 }
 
 void Scene::Load()

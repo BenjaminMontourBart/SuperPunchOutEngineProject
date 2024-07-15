@@ -6,21 +6,30 @@
 #include "ISound.h"
 #include "ICollide.h"
 #include "IWorld.h"
+#include "Animation.h"
+#include "Atlas.h"
 
 
 namespace Homer {
 	class Engine final {
 	public:
-		static Engine& Get();
+		static Engine& Get()
+		{
+			static Engine _instance;
+			return _instance;
+		}
 		~Engine();
 		bool Init(const std::string& title, int w, int h);
 		void Start();
-		void Exit(bool exit);
-		IGFX& Gfx() { return *m_Gfx; };
-		IInput& Input() { return *m_Input; };
-		ISound& Sound() { return *m_Audio; };
-		IWorld& World() { return *m_World; };
-		ICollide& Collide() { return *m_Collide; };
+		void Exit();
+		IGFX& Gfx() const { return *m_Gfx; };
+		IInput& Input() const { return *m_Input; };
+		ILogger& Logger() const { return *m_Logger; }
+		ISound& Sound() const { return *m_Audio; };
+		IWorld& World() const { return *m_World; };
+		ICollide& Collide() const { return *m_Collide; };
+		Animation& animation() const { return *m_Animation; };
+		Atlas& atlas() const { return *m_Atlas; };
 
 	private:
 		void Update(float dt);
@@ -28,12 +37,14 @@ namespace Homer {
 		void Shutdown();
 
 	private:
-		IWorld* m_World;
-		ISound* m_Audio;
-		ILogger* m_Logger;
+		Animation* m_Animation = nullptr;
+		Atlas* m_Atlas = nullptr;
+		IWorld* m_World = nullptr;
+		ISound* m_Audio = nullptr;
+		ILogger* m_Logger = nullptr;
 		IGFX* m_Gfx = nullptr;
 		IInput* m_Input = nullptr;
-		ICollide* m_Collide;
+		ICollide* m_Collide = nullptr;
 		bool m_IsInit;
 		bool m_IsRunning;
 

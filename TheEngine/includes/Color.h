@@ -6,6 +6,7 @@ class Color
 {
 public:
 
+	void Set(const Color& other);
 	Color(uchar red, uchar green, uchar blue, uchar alpha = 255);
 	uchar red = 255;
 	uchar green = 255;

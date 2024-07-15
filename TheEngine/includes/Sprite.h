@@ -1,20 +1,35 @@
 #pragma once
-#include "Engine.h"
-#include "Component.h"
+#include <Component.h>
+#include <IDrawable.h>
+#include <Color.h>
+#include <Flip.h>
+#include <RectI.h>
+#include <string>
 
-using namespace Homer;
-
-class Sprite
-	:public Component,
-	public  IDrawable
+namespace Homer
 {
+    class Sprite : public Component, public IDrawable
+    {
+    public:
+        virtual ~Sprite() = default;
+        Sprite();
+        Sprite(Entity* parent);
 
-private:
-	void load();
-	void Draw() override;
+        virtual void Draw() override;
+        virtual void Load(const std::string& filename);
 
-protected:
-	size_t Ptexture = Engine::Get().Gfx().LoadTexture("Chaplin.png");
-	RectI source;
-	RectF destination;
-};
+        void SetColor(const Color& color);
+        void SetFlip(bool h, bool v);
+        bool GetFlipH() const { return m_Flip.y; }
+        bool GetFlipV() const { return m_Flip.x; }
+
+    private:
+        size_t m_TextureId = 0;
+        Color m_Color{ 255, 255, 255, 255 };
+        Flip m_Flip;
+
+    protected:
+        RectI m_Source{ 0, 0, 0, 0 };
+    };
+}
+

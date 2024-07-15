@@ -1,7 +1,11 @@
 #pragma once
 #include <string>
-class ILogger
+
+namespace Homer
 {
-public:
-    virtual void Log(std::string message) = 0;
-};
+    class ILogger
+    {
+    public:
+        virtual void Log(std::string message) = 0;
+    };
+}

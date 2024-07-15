@@ -14,11 +14,11 @@
 
 static Game* m_Game = nullptr;
 
-Homer::Engine& Homer::Engine::Get()
-{
-	static Engine Instance;
-	return Instance;
-}
+//Homer::Engine& Homer::Engine::Get()
+//{
+//	static Engine Instance;
+//	return Instance;
+//}
 
 Homer::Engine::~Engine()
 {
@@ -36,6 +36,16 @@ Homer::Engine::~Engine()
 	{
 		delete m_Gfx;
 		m_Gfx = nullptr;
+	}
+	if (m_Animation != nullptr)
+	{
+		delete m_Animation;
+		m_Animation = nullptr;
+	}
+	if (m_Atlas != nullptr)
+	{
+		delete m_Atlas;
+		m_Atlas = nullptr;
 	}
 	if (m_Input != nullptr)
 	{
@@ -60,6 +70,8 @@ bool Homer::Engine::Init(const std::string& title, int w, int h)
 	m_World = new WorldService;
 	m_Audio = new Audio;
 	m_Gfx = new SDLGFX();
+	m_Animation = new Animation();
+	m_Atlas = new Atlas();
 	m_Gfx->Initialize(title, w, h);
 	m_Collide = new Collision();
 	m_Logger = new Console();
@@ -105,6 +117,7 @@ void Homer::Engine::Start()
 		float _dt = (start - _end) * 0.001f;
 		m_Input->Update();
 		Update(_dt);
+		m_World->Update(_dt);
 		m_Game->Update(_dt);
 		Render();
 		////////////////////////////////////////// la difference entre 2 frame /////////////
@@ -133,7 +146,7 @@ void Homer::Engine::Shutdown()
 	delete m_Game;
 }
 
-void Homer::Engine::Exit(bool exit)
+void Homer::Engine::Exit()
 {
-	m_IsRunning = exit;
+	m_IsRunning = false;
 }

@@ -1,6 +1,6 @@
 #include "WorldService.h"
 
-WorldService::~WorldService()
+Homer::WorldService::~WorldService()
 {
 	if (m_EntitiesInWorld.size() > 0)
 	{
@@ -19,17 +19,17 @@ WorldService::~WorldService()
 	}
 }
 
-void WorldService::Add(Entity* entity)
+void Homer::WorldService::Add(Entity* entity)
 {
 	m_EntitiesInWorld.push_back(entity);
 }
-Entity* WorldService::Create(const char* name)
+Homer::Entity* Homer::WorldService::Create(const char* name)
 {
 	Entity* _e = new Entity(name);
 	Add(_e);
 	return _e;
 }
-Entity* WorldService::Find(std::string name)
+Homer::Entity* Homer::WorldService::Find(std::string name)
 {
 	/////adapter en dictionnaire
 	for (int i = 0; i < m_EntitiesInWorld.size(); i++)
@@ -41,14 +41,14 @@ Entity* WorldService::Find(std::string name)
 		return nullptr;
 	}
 }
-void WorldService::Remove(Entity* entity)
+void Homer::WorldService::Remove(Entity* entity)
 {
 	for (auto i = m_EntitiesDict.end(); i != m_EntitiesDict.begin(); i--)
 	{
 		(*i).second->GetName();
 	}
 }
-void WorldService::Load(const char* scene)
+void Homer::WorldService::Load(const char* scene)
 {
 	if (m_CurrentScene != m_Scenes[scene])
 	{
@@ -61,7 +61,7 @@ void WorldService::Load(const char* scene)
 		}
 	}
 }
-void WorldService::Register(const char* name, IScene* scene)
+void Homer::WorldService::Register(const char* name, IScene* scene)
 {
 	if (m_Scenes.count(name) > 0)
 	{
@@ -72,7 +72,7 @@ void WorldService::Register(const char* name, IScene* scene)
 		m_Scenes.emplace(name, scene);
 	}
 }
-void WorldService::Unload()
+void Homer::WorldService::Unload()
 {
 	if (m_CurrentScene != nullptr)
 	{
@@ -85,14 +85,14 @@ void WorldService::Unload()
 	}
 }
 
-void WorldService::Update(float dt)
+void Homer::WorldService::Update(float dt)
 {
 	for (auto entity : m_EntitiesInWorld)
 	{
 		entity->Update(dt);
 	}
 }
-void WorldService::Draw()
+void Homer::WorldService::Draw()
 {
 	m_CurrentScene->Draw();
 	for (auto entity : m_EntitiesInWorld)

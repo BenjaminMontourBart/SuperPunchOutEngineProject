@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-bool Collision::RectCollider(ColliderType type, float x, float y, float h, float w)
+bool Homer::Collision::RectCollider(ColliderType type, float x, float y, float h, float w)
 {
 
 	if (m_CollideMap.find(type) != m_CollideMap.end())
@@ -36,7 +36,7 @@ bool Collision::RectCollider(ColliderType type, float x, float y, float h, float
 
 }
 
-bool Collision::CercleCollider(float x, float y, float h, float xPlayer, float yPlayer, float hPlayer)
+bool Homer::Collision::CercleCollider(float x, float y, float h, float xPlayer, float yPlayer, float hPlayer)
 {
 	if (hPlayer + h > (x - xPlayer) && hPlayer + h > (y - yPlayer))
 	{
@@ -45,7 +45,7 @@ bool Collision::CercleCollider(float x, float y, float h, float xPlayer, float y
 	return false;
 }
 
-bool Collision::LineCollider(float x1, float y1, float x2, float y2, float xPlayer, float yPlayer, float hPlayer)
+bool Homer::Collision::LineCollider(float x1, float y1, float x2, float y2, float xPlayer, float yPlayer, float hPlayer)
 {
 	return nullptr;
 }

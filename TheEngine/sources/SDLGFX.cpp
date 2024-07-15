@@ -6,7 +6,7 @@
 #include "Engine.h"
 
 
-SDLGFX::~SDLGFX()
+Homer::SDLGFX::~SDLGFX()
 {
 	if (m_Window != nullptr)
 	{
@@ -30,7 +30,7 @@ SDLGFX::~SDLGFX()
 	}
 }
 
-bool SDLGFX::Initialize(const std::string& title, int w, int h)
+bool Homer::SDLGFX::Initialize(const std::string& title, int w, int h)
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -58,7 +58,7 @@ bool SDLGFX::Initialize(const std::string& title, int w, int h)
 	return false;
 }
 
-void SDLGFX::Shutdown()
+void Homer::SDLGFX::Shutdown()
 {
 	TTF_Quit();
 	SDL_DestroyRenderer(m_Renderer);
@@ -66,24 +66,24 @@ void SDLGFX::Shutdown()
 	SDL_Quit();
 }
 
-void SDLGFX::SetColor(const Color& color)
+void Homer::SDLGFX::SetColor(const Color& color)
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.red, color.green, color.blue, 255);
 }
 
-void SDLGFX::Clear()
+void Homer::SDLGFX::Clear()
 {
 	SDL_RenderClear(m_Renderer);
 	m_TextureCache.clear();
 	m_FontCache.clear();
 }
 
-void SDLGFX::Present()
+void Homer::SDLGFX::Present()
 {
 	SDL_RenderPresent(m_Renderer);
 }
 
-void SDLGFX::DrawRect(float x, float y, float w, float h, const Color& color)
+void Homer::SDLGFX::DrawRect(float x, float y, float w, float h, const Color& color)
 {
 	SDL_Rect _rect = {
 		static_cast<int>(x),
@@ -96,12 +96,12 @@ void SDLGFX::DrawRect(float x, float y, float w, float h, const Color& color)
 	SDL_RenderDrawRect(m_Renderer, &_rect);
 }
 
-void SDLGFX::DrawRect(const RectF& rect, const Color& color)
+void Homer::SDLGFX::DrawRect(const RectF& rect, const Color& color)
 {
 	DrawRect(rect.x, rect.y, rect.w, rect.h, color);
 }
 
-void SDLGFX::FillRect(int x, int y, int w, int h, const Color& color)
+void Homer::SDLGFX::FillRect(int x, int y, int w, int h, const Color& color)
 {
 	SDL_Rect get_rekt = { 
 		static_cast<int>(x),
@@ -114,12 +114,12 @@ void SDLGFX::FillRect(int x, int y, int w, int h, const Color& color)
 	SDL_RenderFillRect(m_Renderer, &get_rekt);
 }
 
-void SDLGFX::FillRect(const RectF& rect, const Color& color)
+void Homer::SDLGFX::FillRect(const RectF& rect, const Color& color)
 {
 	FillRect(rect.x, rect.y, rect.w, rect.h, color);
 }
 
-void SDLGFX::DrawLine(float x1, float y1, float x2, float y2, const Color& color)
+void Homer::SDLGFX::DrawLine(float x1, float y1, float x2, float y2, const Color& color)
 {
 	SetColor(color);
 	SDL_RenderDrawLine(m_Renderer,
@@ -129,7 +129,7 @@ void SDLGFX::DrawLine(float x1, float y1, float x2, float y2, const Color& color
 		static_cast<int>(y2));
 }
 
-size_t SDLGFX::LoadTexture(const std::string& filename)
+size_t Homer::SDLGFX::LoadTexture(const std::string& filename)
 {
 	const size_t _textureId = std::hash<std::string>()(filename);
 	if (m_TextureCache.count(_textureId) > 0)
@@ -141,7 +141,7 @@ size_t SDLGFX::LoadTexture(const std::string& filename)
 	return _textureId;
 }
 
-void SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, double angle, const Flip& flip, const Color& color)
+void Homer::SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, double angle, const Flip& flip, const Color& color)
 {
 	Uint8 r = color.red;
 	Uint8 g = color.green;
@@ -157,7 +157,7 @@ void SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, double a
 	SDL_RenderCopyEx(m_Renderer, m_TextureCache[id], &Src, &Dst, 0, nullptr, Flip);
 }
 
-void SDLGFX::DrawTexture(size_t id, const RectF& dst, const Color& color)
+void Homer::SDLGFX::DrawTexture(size_t id, const RectF& dst, const Color& color)
 {
 	Uint8 r = color.red;
 	Uint8 g = color.green;
@@ -171,7 +171,7 @@ void SDLGFX::DrawTexture(size_t id, const RectF& dst, const Color& color)
 	SDL_RenderCopyEx(m_Renderer, m_TextureCache[id], nullptr, &Dst, 0, nullptr, SDL_FLIP_NONE);
 }
 
-void SDLGFX::DrawTexture(size_t id, const Color& color)
+void Homer::SDLGFX::DrawTexture(size_t id, const Color& color)
 {
 	Uint8 r = color.red;
 	Uint8 g = color.green;
@@ -183,11 +183,11 @@ void SDLGFX::DrawTexture(size_t id, const Color& color)
 	SDL_RenderCopyEx(m_Renderer, m_TextureCache[id], nullptr, nullptr, 0, nullptr, SDL_FLIP_NONE);
 }
 
-void SDLGFX::GetTextureSize(size_t id, int* w, int* h)
+void Homer::SDLGFX::GetTextureSize(size_t id, int* w, int* h)
 {
 }
 
-size_t SDLGFX::LoadFont(const std::string& filename, int fontSize)
+size_t Homer::SDLGFX::LoadFont(const std::string& filename, int fontSize)
 {
 	const size_t _fntId = std::hash<std::string>()(filename);
 	if (m_FontCache.count(_fntId) > 0)
@@ -205,7 +205,7 @@ size_t SDLGFX::LoadFont(const std::string& filename, int fontSize)
 
 SDL_Texture* g_TextureBuffer;
 
-void SDLGFX::DrawString(const std::string& text, size_t fontId, float x, float y, const Color& color)
+void Homer::SDLGFX::DrawString(const std::string& text, size_t fontId, float x, float y, const Color& color)
 {
 	const SDL_Color _color = {
 		static_cast<Uint8>(color.red),
@@ -228,7 +228,7 @@ void SDLGFX::DrawString(const std::string& text, size_t fontId, float x, float y
 	SDL_FreeSurface(_surface);
 }
 
-void SDLGFX::GetTextSize(const std::string& text, size_t fontId, int* w, int* h)
+void Homer::SDLGFX::GetTextSize(const std::string& text, size_t fontId, int* w, int* h)
 {
 	if (m_FontCache.count(fontId) > 0)
 	{

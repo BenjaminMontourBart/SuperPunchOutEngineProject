@@ -20,7 +20,7 @@ void SDLInput::Update()
 		switch (_event.type)
 		{
 		case SDL_QUIT:
-			Homer::Engine::Get().Exit(false);
+			Homer::Engine::Get().Exit();
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:

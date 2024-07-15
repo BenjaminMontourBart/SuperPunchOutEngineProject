@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::~Entity()
+Homer::Entity::~Entity()
 {
 	for (auto& i : m_Components)
 	{
@@ -8,12 +8,12 @@ Entity::~Entity()
 	}
 }
 
-Entity::Entity(const char* name)
+Homer::Entity::Entity(const char* name)
 	:m_Name(name)
 {
 }
 
-void Entity::Update(float dt)
+void Homer::Entity::Update(float dt)
 {
 	for (auto& i : m_Update)
 	{
@@ -21,7 +21,7 @@ void Entity::Update(float dt)
 	}
 }
 
-void Entity::Draw()
+void Homer::Entity::Draw()
 {
 	for (auto& i : m_Draw)
 	{

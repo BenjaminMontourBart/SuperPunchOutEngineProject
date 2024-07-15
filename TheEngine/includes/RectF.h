@@ -1,9 +1,11 @@
 #pragma once
-
-struct RectF
+namespace Homer
 {
-    float x;
-    float y;
-    float w;
-    float h;
-};
+    struct RectF
+    {
+        float x;
+        float y;
+        float w;
+        float h;
+    };
+}

@@ -1,16 +1,16 @@
 #include "Console.h"
 #include "Windows.h"
 
-Console::~Console()
+Homer::Console::~Console()
 {
 	FreeConsole();
 }
 
-void Console::Log(std::string message)
+void Homer::Console::Log(std::string message)
 {
 }
 
-Console::Console()
+Homer::Console::Console()
 {
 	AllocConsole();
 }
