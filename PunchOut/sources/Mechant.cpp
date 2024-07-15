@@ -6,6 +6,7 @@ using namespace Homer;
 
 Mechant::~Mechant()
 {
+
 }
 
 void Mechant::Start(int x, int y, int w, int h)
@@ -20,7 +21,7 @@ void Mechant::Update(float dt)
 {
 	if (Engine::Get().Collide().RectCollider(EnemyType, m_X, m_Y, W, H) == true)
 	{
-
+		/*delete this;*/
 	}
 }
 
