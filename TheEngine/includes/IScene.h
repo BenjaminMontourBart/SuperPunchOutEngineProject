@@ -9,7 +9,6 @@ namespace Homer
     public:
         virtual ~IScene() = default;
         virtual void Load() = 0;
-        virtual void Draw() = 0;
 
     protected:
         Entity* m_Entity;

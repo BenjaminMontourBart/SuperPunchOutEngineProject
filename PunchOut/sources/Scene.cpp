@@ -26,10 +26,10 @@ void Scene::Load()
 	Engine::Get().Sound().PlayMusic(_BMusic);
 }
 
-void Scene::Draw()
-{
-	size_t _Btexture = Engine::Get().Gfx().LoadTexture("assets/oopsi.jpg");
-	Engine::Get().Gfx().DrawTexture(_Btexture, Red);
-	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
-	Engine::Get().Gfx().DrawString("Press P for change Scene", _Font, 200, 10, Red);
-}
+//void Scene::Draw()
+//{
+//	size_t _Btexture = Engine::Get().Gfx().LoadTexture("assets/oopsi.jpg");
+//	Engine::Get().Gfx().DrawTexture(_Btexture, Red);
+//	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
+//	Engine::Get().Gfx().DrawString("Press P for change Scene", _Font, 200, 10, Red);
+//}

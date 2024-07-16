@@ -1,6 +1,5 @@
 #include "SDLInput.h"
 #include "SDL.h"
-#include "Engine.h"
 
 int SDLInput::IsKeyDown(int key)
 {
@@ -20,7 +19,7 @@ void SDLInput::Update()
 		switch (_event.type)
 		{
 		case SDL_QUIT:
-			Homer::Engine::Get().Exit();
+			isEnd = true;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:

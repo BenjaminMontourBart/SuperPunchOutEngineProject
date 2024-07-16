@@ -37,16 +37,6 @@ Homer::Engine::~Engine()
 		delete m_Gfx;
 		m_Gfx = nullptr;
 	}
-	if (m_Animation != nullptr)
-	{
-		delete m_Animation;
-		m_Animation = nullptr;
-	}
-	if (m_Atlas != nullptr)
-	{
-		delete m_Atlas;
-		m_Atlas = nullptr;
-	}
 	if (m_Input != nullptr)
 	{
 		delete m_Input;
@@ -70,13 +60,10 @@ bool Homer::Engine::Init(const std::string& title, int w, int h)
 	m_World = new WorldService;
 	m_Audio = new Audio;
 	m_Gfx = new SDLGFX();
-	m_Animation = new Animation();
-	m_Atlas = new Atlas();
 	m_Gfx->Initialize(title, w, h);
 	m_Collide = new Collision();
 	m_Logger = new Console();
 	m_Input = new SDLInput();
-	m_Game = new Game();
 	m_Game->Init(title, w, h);
 
 	Timer = 0;
@@ -115,16 +102,13 @@ void Homer::Engine::Start()
 		const clock_t start = clock();
 		/////////////////////////////////////////// Calcul du DeltaTime /////////////
 		float _dt = (start - _end) * 0.001f;
-		m_Input->Update();
 		Update(_dt);
-		m_World->Update(_dt);
-		m_Game->Update(_dt);
 		Render();
 		////////////////////////////////////////// la difference entre 2 frame /////////////
 		SleepTime = 16.6f - (_dt * 1000);
 		if (SleepTime > 0.0f)
 		{
-			Sleep(SleepTime);
+			Sleep(static_cast<DWORD>(SleepTime));
 		}
 		_end = start;
 	}
@@ -134,16 +118,29 @@ void Homer::Engine::Start()
 
 void Homer::Engine::Update(float dt)
 {
+	m_Input->Update();
+	if (m_Input->isEnd){
+		Exit();
+	}
+#ifdef DEBUG_MODE
+	if (m_Input->IsKeyDown(Homer::MyKey_ESCAPE))
+	{
+		Exit();
+	}
+#endif
+	m_World->Update(dt);
 }
 
 void Homer::Engine::Render()
 {
-	m_Game->Render();
+	m_Gfx->Clear();
+	m_World->Draw();
+	m_Gfx->Present();
 }
 
 void Homer::Engine::Shutdown()
 {
-	delete m_Game;
+	m_Gfx->Shutdown();
 }
 
 void Homer::Engine::Exit()

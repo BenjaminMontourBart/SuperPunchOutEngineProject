@@ -2,6 +2,11 @@
 #include <iostream>
 #include <string>
 
+Homer::Collision::~Collision()
+{
+	m_CollideMap.clear();
+}
+
 bool Homer::Collision::RectCollider(ColliderType type, float x, float y, float h, float w)
 {
 

@@ -18,7 +18,8 @@ Homer::Audio::~Audio()
 	{
 		Mix_FreeMusic(i.second);
 	}
-	
+	m_SoundCache.clear();
+	m_MusicCache.clear();
 }
 
 size_t Homer::Audio::LoadMusic(const std::string& filename)

@@ -12,7 +12,6 @@ namespace Homer
     {
     public:
         virtual ~Sprite() = default;
-        Sprite();
         Sprite(Entity* parent);
 
         virtual void Draw() override;

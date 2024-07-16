@@ -404,5 +404,6 @@ namespace Homer
     protected:
         friend class Engine;
         virtual void Update() = 0;
+        bool isEnd;
     };
 }

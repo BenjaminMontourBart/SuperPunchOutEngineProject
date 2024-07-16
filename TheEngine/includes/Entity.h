@@ -66,7 +66,7 @@ namespace Homer
 		}
 		template<typename T>T* AddComponent()
 		{
-			T* cmp = new T();
+			T* cmp = new T(this);
 			const type_info* type = &typeid(*cmp);
 			m_Components.emplace(type, cmp);
 			IUpdatable* update = dynamic_cast<IUpdatable*>(cmp);

@@ -21,7 +21,7 @@ namespace Homer
         virtual void Present();
         virtual void DrawRect(float x, float y, float w, float h, const Color& color);
         virtual void DrawRect(const RectF& rect, const Color& color);
-        virtual void FillRect(int x, int y, int w, int h, const Color& color);
+        virtual void FillRect(float x, float y, float w, float h, const Color& color);
         virtual void FillRect(const RectF& rect, const Color& color);
         virtual void DrawLine(float x1, float y1, float x2, float y2, const Color& color);
         virtual size_t LoadTexture(const std::string& filename);

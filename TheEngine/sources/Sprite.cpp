@@ -2,10 +2,6 @@
 #include "Engine.h"
 #include "Entity.h"
 
-Homer::Sprite::Sprite() : Sprite(nullptr)
-{
-}
-
 Homer::Sprite::Sprite(Entity* parent) : Component(parent)
 {
     m_Flip.y = false;
@@ -14,10 +10,8 @@ Homer::Sprite::Sprite(Entity* parent) : Component(parent)
 
 void Homer::Sprite::Draw()
 {
-    //double _rot = m_Entity->GetRotation();
     double _rot = 0;
     RectF _dst = {0, 0, 800, 600};
-    //m_Entity->GetRect(&_dst);
 
     Graphics().DrawTexture(m_TextureId, m_Source, _dst, _rot, m_Flip, m_Color);
 }

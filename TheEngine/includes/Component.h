@@ -9,17 +9,17 @@ namespace Homer
 	class IGFX;
 	class ISound;
 	class IWorld;
+	class Animation;
+	class Atlas;
 
 	class Component
 	{
 	public:
 		virtual ~Component() = default;
-		Component();
 		Component(Entity* parent);
 		virtual void Start() {}
 		virtual void Destroy() {}
 	protected:
-		void Exit();
 		IInput& Input() const;
 		ILogger& Logger() const;
 		IGFX& Graphics() const;

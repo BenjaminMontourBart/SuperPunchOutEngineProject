@@ -11,7 +11,6 @@ namespace Homer
     {
         ~Scene();
         void Load() override;
-        void Draw() override;
 
     private:
         std::vector<Entity*> entity;

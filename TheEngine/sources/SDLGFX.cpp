@@ -10,23 +10,11 @@ Homer::SDLGFX::~SDLGFX()
 {
 	if (m_Window != nullptr)
 	{
-		delete m_Window;
-		m_Window = nullptr;
+		SDL_DestroyWindow(m_Window);
 	}
 	if (m_Renderer != nullptr)
 	{
-		delete m_Renderer;
-		m_Renderer = nullptr;
-	}
-	if (m_TextureCache.size() > 0)
-	{
-		delete &m_TextureCache;
-		m_TextureCache = std::map<size_t, SDL_Texture*>();
-	}
-	if (m_FontCache.size() > 0)
-	{
-		delete &m_FontCache;
-		m_FontCache = std::map<size_t, TTF_Font*>();
+		SDL_DestroyRenderer(m_Renderer);
 	}
 }
 
@@ -60,6 +48,16 @@ bool Homer::SDLGFX::Initialize(const std::string& title, int w, int h)
 
 void Homer::SDLGFX::Shutdown()
 {
+	for (auto i = m_TextureCache.begin(); i != m_TextureCache.end(); i++)
+	{
+		SDL_DestroyTexture(i->second);
+	}
+	for (auto i = m_FontCache.begin(); i != m_FontCache.end(); i++)
+	{
+		TTF_CloseFont(i->second);
+	}
+	m_TextureCache.clear();
+	m_FontCache.clear();
 	TTF_Quit();
 	SDL_DestroyRenderer(m_Renderer);
 	SDL_DestroyWindow(m_Window);
@@ -74,8 +72,6 @@ void Homer::SDLGFX::SetColor(const Color& color)
 void Homer::SDLGFX::Clear()
 {
 	SDL_RenderClear(m_Renderer);
-	m_TextureCache.clear();
-	m_FontCache.clear();
 }
 
 void Homer::SDLGFX::Present()
@@ -101,17 +97,17 @@ void Homer::SDLGFX::DrawRect(const RectF& rect, const Color& color)
 	DrawRect(rect.x, rect.y, rect.w, rect.h, color);
 }
 
-void Homer::SDLGFX::FillRect(int x, int y, int w, int h, const Color& color)
+void Homer::SDLGFX::FillRect(float x, float y, float w, float h, const Color& color)
 {
-	SDL_Rect get_rekt = { 
-		static_cast<int>(x),
-		static_cast<int>(y),
-		static_cast<int>(w),
-		static_cast<int>(h) };
+	SDL_FRect get_rekt = { 
+		x,
+		y,
+		w,
+		h };
 
 	SetColor(color);
 
-	SDL_RenderFillRect(m_Renderer, &get_rekt);
+	SDL_RenderFillRectF(m_Renderer, &get_rekt);
 }
 
 void Homer::SDLGFX::FillRect(const RectF& rect, const Color& color)
@@ -149,7 +145,7 @@ void Homer::SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, d
 	Uint8 a = color.alpha;
 
 	SDL_Rect Src = { src.x, src.y, src.w, src.h };
-	SDL_Rect Dst = { dst.x, dst.y, dst.w, dst.h };
+	SDL_Rect Dst = { static_cast<int>(dst.x), static_cast<int>(dst.y), static_cast<int>(dst.w), static_cast<int>(dst.h) };
 	SDL_RendererFlip Flip = SDL_FLIP_NONE;
 
 	SDL_GetTextureColorMod(m_TextureCache[id], &r, &g, &b);
@@ -164,7 +160,7 @@ void Homer::SDLGFX::DrawTexture(size_t id, const RectF& dst, const Color& color)
 	Uint8 b = color.blue;
 	Uint8 a = color.alpha;
 
-	SDL_Rect Dst = { dst.x, dst.y, dst.w, dst.h };
+	SDL_Rect Dst = { static_cast<int>(dst.x), static_cast<int>(dst.y), static_cast<int>(dst.w), static_cast<int>(dst.h) };
 
 	SDL_GetTextureColorMod(m_TextureCache[id], &r, &g, &b);
 	SDL_GetTextureAlphaMod(m_TextureCache[id], &a);

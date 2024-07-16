@@ -2,26 +2,21 @@
 
 Homer::WorldService::~WorldService()
 {
-	if (m_EntitiesInWorld.size() > 0)
+	Unload();
+	for (auto i = m_Scenes.begin(); i != m_Scenes.end(); i++)
 	{
-		m_EntitiesInWorld.clear();
+		delete i->second;
 	}
-	if (m_EntitiesDict.size() > 0)
-	{
-		for (auto& i : m_EntitiesDict)
-		{
-			delete i.second;
-		}
-	}
-	if (m_Scenes.size() > 0)
-	{
-		m_Scenes.clear();
-	}
+	m_Scenes.clear();
 }
 
 void Homer::WorldService::Add(Entity* entity)
 {
 	m_EntitiesInWorld.push_back(entity);
+}
+void Homer::WorldService::SetActive(const char* name)
+{
+	m_EntitiesInWorld.push_back(m_EntitiesDict[name]);
 }
 Homer::Entity* Homer::WorldService::Create(const char* name)
 {
@@ -40,13 +35,17 @@ Homer::Entity* Homer::WorldService::Find(std::string name)
 		}
 		return nullptr;
 	}
+	return nullptr;
 }
 void Homer::WorldService::Remove(Entity* entity)
 {
-	for (auto i = m_EntitiesDict.end(); i != m_EntitiesDict.begin(); i--)
-	{
-		(*i).second->GetName();
+	auto it = std::find(m_EntitiesInWorld.begin(), m_EntitiesInWorld.end(),entity);
+
+	if (it != m_EntitiesInWorld.end()) {
+		m_EntitiesInWorld.erase(it);
 	}
+
+
 }
 void Homer::WorldService::Load(const char* scene)
 {
@@ -94,7 +93,6 @@ void Homer::WorldService::Update(float dt)
 }
 void Homer::WorldService::Draw()
 {
-	m_CurrentScene->Draw();
 	for (auto entity : m_EntitiesInWorld)
 	{
 		entity->Draw();

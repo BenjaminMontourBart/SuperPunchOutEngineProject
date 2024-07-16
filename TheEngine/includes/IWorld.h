@@ -9,6 +9,7 @@ namespace Homer
 	{
 	public:
 		virtual ~IWorld() = default;
+		virtual void SetActive(const char* name) = 0;
 		virtual void Add(Entity* entity) = 0;
 		virtual Entity* Create(const char* name) = 0;
 		virtual Entity* Find(std::string name) = 0;

@@ -10,6 +10,7 @@ namespace Homer
     class IGFX
     {
     public:
+        virtual ~IGFX() = default;
         /// <summary>
         /// ///  Inisialise et autres
         /// </summary>
@@ -24,7 +25,7 @@ namespace Homer
         virtual void Present() = 0;
         virtual void DrawRect(float x, float y, float w, float h, const Color& color) = 0;
         virtual void DrawRect(const RectF& rect, const Color& color) = 0;
-        virtual void FillRect(int x, int y, int w, int h, const Color& color) = 0;
+        virtual void FillRect(float x, float y, float w, float h, const Color& color) = 0;
         virtual void FillRect(const RectF& rect, const Color& color) = 0;
         virtual void DrawLine(float x1, float y1, float x2, float y2, const Color& color) = 0;
         virtual size_t LoadTexture(const std::string& filename) = 0;

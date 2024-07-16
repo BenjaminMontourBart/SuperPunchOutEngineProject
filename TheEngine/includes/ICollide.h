@@ -14,6 +14,7 @@ namespace Homer
 	class ICollide
 	{
 	public:
+		virtual ~ICollide() = default;
 		//virtual void IsColliding(tilemap[][], rx, ry, rw, rh)
 		virtual bool RectCollider(ColliderType type, float x, float y, float h, float w) = 0;
 		virtual bool CercleCollider(float x, float y, float h, float xPlayer, float yPlayer, float hPlayer) = 0;

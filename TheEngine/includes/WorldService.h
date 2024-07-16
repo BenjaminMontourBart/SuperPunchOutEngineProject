@@ -10,6 +10,7 @@ namespace Homer
     {
         ~WorldService();
         virtual void Add(Entity* entity) override;
+        virtual void SetActive(const char* name) override;
         virtual Entity* Create(const char* name) override;
         virtual Entity* Find(std::string name) override;
         virtual void Remove(Entity* entity) override;

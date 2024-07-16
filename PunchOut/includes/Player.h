@@ -12,7 +12,7 @@ namespace Homer
     {
     public:
         ~Player();
-        Player() = default;
+        Player(Entity* parent) : Component(parent) {}
         virtual void Start(int x, int y, int w, int h);
         virtual void Update(float dt);
         virtual void Draw();

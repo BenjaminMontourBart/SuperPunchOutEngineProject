@@ -8,7 +8,7 @@ namespace Homer
 {
     class Entity;
 
-    class Atlas final : public Sprite
+    class Atlas : public Sprite
     {
     public:
         virtual ~Atlas() = default;
@@ -18,7 +18,7 @@ namespace Homer
         void AddFrame(const std::string& name, int x, int y, int w, int h);
         void SetFrame(const std::string& name);
 
-    private:
+    protected:
         std::map<std::string, RectI> m_Frames;
     };
 }

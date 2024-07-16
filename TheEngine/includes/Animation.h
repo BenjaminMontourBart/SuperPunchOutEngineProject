@@ -1,5 +1,5 @@
 #pragma once
-#include <Sprite.h>
+#include <Atlas.h>
 #include <map>
 #include <string>
 #include <IUpdatable.h>
@@ -16,7 +16,7 @@ namespace Homer
         int count;
         float delay;
     };
-    class Animation :public Sprite, public  IUpdatable
+    class Animation :public Atlas, public  IUpdatable
     {
     public:
         virtual ~Animation() = default;

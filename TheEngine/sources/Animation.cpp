@@ -5,7 +5,7 @@ Homer::Animation::Animation() : Animation(nullptr)
 {
 }
 
-Homer::Animation::Animation(Entity* parent) : Sprite(parent)
+Homer::Animation::Animation(Entity* parent) : Atlas(parent)
 {
 }
 
@@ -17,16 +17,16 @@ void Homer::Animation::Update(float dt)
         if (m_Elapsed >= m_Delay)
         {
             m_Elapsed = 0.0f;
-            m_CurrentFrame++;
+            //m_CurrentFrame++;
 
-            if (m_CurrentFrame > m_LastFrame)
+           /* if (m_CurrentFrame > m_LastFrame)
             {
-                m_CurrentFrame = m_FirstFrame;
+                m_CurrentFrame = m_FirstFrame;*/
                 if (!m_Loop)
                 {
                     m_Playing = false;
                 }
-            }
+            //}
 
             UpdateFrame();
         }
@@ -70,7 +70,7 @@ void Homer::Animation::Play(const std::string& name, bool loop)
         const AnimationClip _clip = m_Clips[name];
         m_CurrentFrame = _clip.start;
         m_FirstFrame = _clip.start;
-        m_LastFrame = _clip.start + _clip.count - 1;
+        m_LastFrame = _clip.start + _clip.count;
         m_Delay = _clip.delay;
         m_Loop = loop;
 
@@ -82,7 +82,8 @@ void Homer::Animation::Play(const std::string& name, bool loop)
 
 void Homer::Animation::UpdateFrame()
 {
-    const int _row = m_CurrentFrame / m_FrameInRowCount;
+
+   /* const int _row = m_CurrentFrame / m_FrameInRowCount;
     const int _col = m_CurrentFrame - m_FrameInRowCount * _row;
     const int _x = m_FrameWidth * _col;
     const int _y = m_FrameHeight * _row;
@@ -90,5 +91,15 @@ void Homer::Animation::UpdateFrame()
     m_Source.x = _x;
     m_Source.y = _y;
     m_Source.w = m_FrameWidth;
-    m_Source.h = m_FrameHeight;
+    m_Source.h = m_FrameHeight;*/
+
+
+    auto it = m_Frames.begin();
+    if (m_CurrentFrame < m_Frames.size() -1) {
+        std::advance(it, ++m_CurrentFrame);
+    }
+    else{
+        m_CurrentFrame = 0;
+    }
+    SetFrame(it->first);
 }

@@ -1,16 +1,9 @@
 #include "Component.h"
 #include <Engine.h>
 
-Homer::Component::Component() : Component(nullptr)
-{
-}
 
 Homer::Component::Component(Entity* parent) : m_Entity(parent)
 { 
-}
-void Homer::Component::Exit()
-{
-    Engine::Get().Exit();
 }
 Homer::IInput& Homer::Component::Input() const
 {
