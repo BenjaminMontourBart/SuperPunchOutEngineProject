@@ -24,6 +24,7 @@ namespace Homer
         Observer* m_Observer;
         Entity* entity;
         Animation* m_Anim;
+        size_t _SMusic;
         float m_X = 0.0f;
         float m_Y = 0.0f;
         float H = 0;
@@ -31,12 +32,13 @@ namespace Homer
         float StartY = 0;
         float Timer = 0;
         float TimeGive = 0;
-
+        int HP = 100;
         int AttackCount = 0;
 
         float Random = 0;
         bool m_Idle = false;
         bool m_Attack = false;
+        bool music = false;
     };
 }
 

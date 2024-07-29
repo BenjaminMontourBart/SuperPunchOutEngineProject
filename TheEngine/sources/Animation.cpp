@@ -18,10 +18,10 @@ void Homer::Animation::Update(float dt)
 		{
 			m_Elapsed = 0.0f;
 
-
 			if (!m_Loop && m_CurrentFrame >= m_LastFrame)
 			{
 				m_Playing = false;
+				EndAnimation = true;
 			}
 			else if (m_CurrentFrame > m_LastFrame)
 			{
@@ -31,6 +31,10 @@ void Homer::Animation::Update(float dt)
 
 			UpdateFrame();
 		}
+	}
+	else
+	{
+		EndAnimation = false;
 	}
 }
 
@@ -79,6 +83,11 @@ void Homer::Animation::Play(const std::string& name, bool loop)
 		m_Playing = true;
 		m_CurrentClip = name;
 	}
+}
+
+bool Homer::Animation::Played()
+{
+	return EndAnimation;
 }
 
 

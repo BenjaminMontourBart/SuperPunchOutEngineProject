@@ -34,8 +34,11 @@ namespace Homer
         float Speed = 100;
         bool FlipH = false;
         bool FlipV = false;
-
+        int HP = 100;
+        float EndTimer = 0;
         bool Attack = false;
+
+        bool End = false;
     };
 }
 

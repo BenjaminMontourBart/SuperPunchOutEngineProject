@@ -19,6 +19,8 @@ void Mechant::Start(int x, int y, int w, int h)
 	StartY = m_Y;
 	entity = Engine::Get().World().Create("Enemy");
 
+	_SMusic = Engine::Get().Sound().LoadSound("assets/ComeOn.wav");
+
 	m_Anim = entity->AddComponent<Animation>();
 
 	m_Anim->Init(1, 432, 176);
@@ -93,6 +95,12 @@ void Mechant::Update(float dt)
 			}
 			else if (m_Y < StartY)
 			{
+				if (music == false)
+				{
+					music = true;
+					Engine::Get().Sound().SetVolume(_SMusic, 20);
+					Engine::Get().Sound().PlaySFX(_SMusic);
+				}
 				m_Y += 70 * dt;
 				m_Anim->Play("ComeOnMove2", false);
 			}
@@ -104,6 +112,7 @@ void Mechant::Update(float dt)
 			TimeGive = 3;
 			if (Timer >= TimeGive)
 			{
+				music = false;
 				Random = -1;
 				AttackCount = -1;
 			}
@@ -129,6 +138,8 @@ void Mechant::Update(float dt)
 
 void Mechant::Draw()
 {
+	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
+	Engine::Get().Gfx().DrawString(std::to_string(HP), _Font, 700, 10, Red);
 }
 
 

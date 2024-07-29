@@ -30,6 +30,8 @@ namespace Homer
         void Stop();
         void Play(const std::string& name, bool loop);
 
+        bool Played();
+
     private:
         void UpdateFrame();
 
@@ -46,6 +48,8 @@ namespace Homer
         bool m_Loop = false;
         int m_CurrentFrame = 0;
         std::string m_CurrentClip;
+
+        bool EndAnimation = false;
     };
 }
 
