@@ -1,11 +1,12 @@
 #pragma once
 #include "Observer.h"
+#include <vector>
 
 template<typename T>
 class Subject
 {
 public:
-	/*void AddListener(Observer<T>* o)
+	void AddListener(Observer<T>* o)
 	{
 		m_Observers.push_back(o);
 	}
@@ -19,8 +20,8 @@ public:
 		{
 			o->OnNotify(value);
 		}
-	}*/
+	}
 private:
-	//std::list<Observer<T>*> m_Observers;
+	std::vector<Observer<int>*> m_Observers;
 };
 

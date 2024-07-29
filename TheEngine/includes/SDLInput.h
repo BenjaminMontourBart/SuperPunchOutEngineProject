@@ -12,4 +12,5 @@ protected:
     virtual void Update();
 private:
     const unsigned char* m_keystates;
+    bool m_OnTouch = false;
 };

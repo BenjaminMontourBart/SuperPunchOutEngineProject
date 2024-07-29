@@ -3,6 +3,7 @@
 #include "IDrawable.h"
 #include "IUpdatable.h"
 #include "Animation.h"
+#include "Observer.h"
 #include "Subject.h"
 
 namespace Homer
@@ -10,7 +11,8 @@ namespace Homer
     class Player :
         public Component,
         public IUpdatable,
-        public IDrawable
+        public IDrawable,
+        public Observer<int>
     {
     public:
         ~Player();
@@ -19,26 +21,32 @@ namespace Homer
         virtual void Update(float dt);
         virtual void Draw();
 
-        //Subject<int> Position;
+        void OnNotify(int value) override;
+
+        Subject<int> Position;
 
     private:
 
-        Entity* entity;
+        Entity* m_entity;
         Animation* m_Anim;
-        size_t _SMusic;
-        float XStart;
+        size_t m_SMusic;
+        float m_XStart;
         float m_X = 0.0f;
         float m_Y = 0.0f;
-        float H = 200;
-        float W = 200;
-        float Speed = 100;
-        bool FlipH = false;
-        bool FlipV = false;
-        int HP = 100;
-        float EndTimer = 0;
-        bool Attack = false;
+        float m_H = 200;
+        float m_W = 200;
+        float m_Speed = 100;
+        bool m_FlipH = false;
+        bool m_FlipV = false;
+        bool m_Left = false;
+        bool m_Right = false;
+        bool m_TopDef = false;
+        bool m_Invincible = false;
+        int m_HP = 100;
+        float m_EndTimer = 0;
+        bool m_Attack = false;
 
-        bool End = false;
+        bool m_End = false;
     };
 }
 

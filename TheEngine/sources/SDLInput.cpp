@@ -1,11 +1,12 @@
 #include "SDLInput.h"
 #include "SDL.h"
 
+
+
 int SDLInput::IsKeyDown(int key)
 {
 	return m_keystates[key];
 }
-
 void SDLInput::Init()
 {
 }

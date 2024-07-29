@@ -13,15 +13,15 @@ void Player::Start(int x, int y, int w, int h)
 {
 	m_X = static_cast<float>(x);
 	m_Y = static_cast<float>(y);
-	W = static_cast<float>(w);
-	H = static_cast<float>(h);
+	m_W = static_cast<float>(w);
+	m_H = static_cast<float>(h);
 
-	XStart = m_X;
+	m_XStart = m_X;
 	//_SMusic = Engine::Get().Sound().LoadSound("assets/Chipeur.mp3");
 
-	entity = Engine::Get().World().Create("Player");
+	m_entity = Engine::Get().World().Create("Player");
 
-	m_Anim = entity->AddComponent<Animation>();
+	m_Anim = m_entity->AddComponent<Animation>();
 	m_Anim->Init(1, 432, 176);
 	m_Anim->Load("assets/Player.png");
 	m_Anim->AddFrame("Punch1", 465, 149, 83, 102);
@@ -45,78 +45,82 @@ void Player::Start(int x, int y, int w, int h)
 	m_Anim->AddClip("Punch", 5, 1, 0.3f);
 	m_Anim->AddClip("FacePunch", 1, 1, 0.3f);
 	m_Anim->AddClip("Win", 9, 1, 0.5f);
-
 }
 
 void Player::Update(float dt)
 {
 	m_Anim->SetPos(m_X, m_Y, 150, 300);
-	m_Anim->SetFlip(FlipH, FlipV);
+	m_Anim->SetFlip(m_FlipH, m_FlipV);
 
-	Engine::Get().Collide().RectCollider(PlayerType, m_X, m_Y, W, H);
+	Engine::Get().Collide().RectCollider(PlayerType, m_X, m_Y, m_W, m_H);
 
 
-	if (End == false)
+	if (m_End == false)
 	{
-		if (Engine::Get().Input().IsKeyDown(Homer::MyKey_UP) && Attack == false)
+		if (Engine::Get().Input().IsKeyDown(Homer::MyKey_UP) && m_Attack == false)
 		{
 			m_Anim->SetFrame("FaceBlock");
-
-			/*Engine::Get().Sound().SetVolume(_SMusic, 10);
-			Engine::Get().Sound().PlaySFX(_SMusic);*/
+			m_TopDef = true;
 		}
 		else if (Engine::Get().Input().IsKeyDown(Homer::MyKey_DOWN))
 		{
+			m_TopDef = false;
 			m_Anim->SetFrame("Idle");
 
 		}
-		else if (Attack != true)
+		else if (m_Attack != true)
 		{
+			m_TopDef = false;
 			m_Anim->SetFrame("Idle");
 		}
 
 		if (Engine::Get().Input().IsKeyDown(Homer::MyKey_LEFT))
 		{
-			FlipV = false;
+			m_FlipV = false;
 			m_Anim->SetFrame("Dodge");
 			m_X = 250;
+			m_Invincible = true;
 		}
 		else if (Engine::Get().Input().IsKeyDown(Homer::MyKey_RIGHT))
 		{
 			m_Anim->SetFrame("Dodge");
-			FlipV = true;
+			m_FlipV = true;
 			m_X = 450;
+			m_Invincible = true;
 		}
 		else
 		{
-			m_X = XStart;
-			FlipV = false;
+			m_Invincible = false;
+			m_X = m_XStart;
+			m_FlipV = false;
 		}
 
 		if (Engine::Get().Input().IsKeyDown(Homer::MyKey_Z) && !Engine::Get().Input().IsKeyDown(Homer::MyKey_UP))
 		{
-			Attack = true;
+			m_Attack = true;
 			m_Anim->Play("Punch", false);
+			Position.Invoke(1);
 		}
 		else if (Engine::Get().Input().IsKeyDown(Homer::MyKey_Z) && Engine::Get().Input().IsKeyDown(Homer::MyKey_UP))
 		{
-			Attack = true;
+			m_Attack = true;
 			m_Anim->Play("FacePunch", false);
+			Position.Invoke(2);
 		}
 		else
 		{
-			Attack = false;
+			m_Attack = false;
 			m_Anim->Play("", false);
 		}
 	}
 	else
 	{
-		EndTimer += dt;
-		if (HP > 0)
+		m_EndTimer += dt;
+		if (m_HP > 0)
 		{
 			m_Anim->Play("Win", false);
 		}
-		if (EndTimer > 3)
+		if (m_EndTimer > 3)
 		{
 			Engine::Get().Sound().StopMusic();
 			Engine::Get().World().Load("Scene");
@@ -128,7 +132,29 @@ void Player::Update(float dt)
 void Player::Draw()
 {
 	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
-	Engine::Get().Gfx().DrawString(std::to_string(HP), _Font, 20, 10, Blue);
+	Engine::Get().Gfx().DrawString(std::to_string(m_HP), _Font, 20, 10, Blue);
+}
+void Player::OnNotify(int value)
+{
+	m_Anim->Stop();
+	if (value == 1 && m_TopDef == true && m_Invincible == false)
+	{
+		m_Anim->SetFrame("GetPunch");
+		m_HP -= 10;
+	}
+	else if (value == 2 && m_TopDef == false && m_Invincible == false)
+	{
+		m_Anim->SetFrame("GetFacePunch");
+		m_HP -= 10;
+	}
+	else if (value == 1 && m_TopDef == false && m_Invincible == false)
+	{
+		m_Anim->SetFrame("FaceBlock");
+	}
+	else if (value == 2 && m_TopDef == true && m_Invincible == false)
+	{
+		m_Anim->SetFrame("FaceBlock");
+	}
 }
 
 

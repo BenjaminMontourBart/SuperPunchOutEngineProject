@@ -54,6 +54,7 @@ void Homer::Animation::Init(int frameInRows, int frameWidth, int frameHeight)
 
 void Homer::Animation::AddClip(const std::string& name, int start, int count, float delay)
 {
+
 	m_Clips.emplace(name, AnimationClip{ start, count, delay });
 }
 

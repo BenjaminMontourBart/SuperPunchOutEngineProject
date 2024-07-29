@@ -4,13 +4,15 @@
 #include "IUpdatable.h"
 #include "Animation.h"
 #include "Observer.h"
+#include "Subject.h"
 
 namespace Homer
 {
     class Mechant :
         public Component,
         public IUpdatable,
-        public IDrawable
+        public IDrawable,
+        public Observer<int>
     {
     public:
         ~Mechant();
@@ -18,27 +20,32 @@ namespace Homer
         virtual void Start(int x, int y, int w, int h);
         virtual void Update(float dt);
         virtual void Draw();
+  
+        void OnNotify(int value) override;
+
+        Subject<int> Position;
 
     private:
 
-        Observer* m_Observer;
-        Entity* entity;
+        Entity* m_entity;
         Animation* m_Anim;
-        size_t _SMusic;
+        size_t m_SMusic;
         float m_X = 0.0f;
         float m_Y = 0.0f;
-        float H = 0;
-        float W = 0;
-        float StartY = 0;
-        float Timer = 0;
-        float TimeGive = 0;
-        int HP = 100;
-        int AttackCount = 0;
-
-        float Random = 0;
+        float m_H = 0;
+        float m_W = 0;
+        float m_StartY = 0;
+        float m_Timer = 0;
+        float m_TimeGive = 0;
+        int m_HP = 100;
+        int m_AttackCount = 0;
+        float DefTimerChange = 0;
+        bool m_TopDef = false;
+        bool m_Invincible = false;
+        int m_Random = 0;
         bool m_Idle = false;
         bool m_Attack = false;
-        bool music = false;
+        bool m_Music = false;
     };
 }
 

@@ -149,15 +149,15 @@ void Homer::SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, d
 
 	SDL_RendererFlip Flip = SDL_FLIP_NONE;
 
-	if (flip.x == false && flip.y == false)
+	if (!flip.x && !flip.y)
 	{
 		Flip = SDL_FLIP_NONE;
 	}
-	else if (flip.x == true && flip.y == false)
+	else if (flip.x && !flip.y)
 	{
 		Flip = SDL_FLIP_HORIZONTAL;
 	}
-	else if (flip.x == false && flip.y == true)
+	else if (!flip.x && flip.y)
 	{
 		Flip = SDL_FLIP_VERTICAL;
 	}

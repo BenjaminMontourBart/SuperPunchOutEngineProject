@@ -36,9 +36,11 @@ void FightScene::Load()
 
 	entity.push_back(Engine::Get().World().Create("Player"));
 	player = entity[2]->AddComponent<Player>();
-	//player->Position.AddListener(enemy);
 	player->Start(350, 320, 200, 200);
 	m_EntityVector.push_back(entity[2]);
+
+	player->Position.AddListener(enemy);
+	enemy->Position.AddListener(player);
 
 	size_t _BMusic = Engine::Get().Sound().LoadMusic("assets/Tutorial.mp3");
 	Engine::Get().Sound().PlayMusic(_BMusic);
