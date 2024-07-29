@@ -34,14 +34,7 @@ void Homer::Entity::Draw()
 	{
 		for (auto& i : m_Draw)
 		{
-			//if (i->Draw())
-			//{
-				i->Draw();
-			//}
-			//else
-			//{
-			//	delete i;
-			//}
+			i->Draw();
 		}
 	}
 }

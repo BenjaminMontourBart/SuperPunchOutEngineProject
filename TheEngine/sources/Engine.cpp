@@ -1,5 +1,4 @@
 #include "Engine.h"
-#include "Game.h"
 #include <time.h>
 #include "Windows.h"
 #include <iostream>
@@ -11,14 +10,6 @@
 #include "Collision.h"
 #include "WorldService.h"
 
-
-static Game* m_Game = nullptr;
-
-//Homer::Engine& Homer::Engine::Get()
-//{
-//	static Engine Instance;
-//	return Instance;
-//}
 
 Homer::Engine::~Engine()
 {
@@ -64,7 +55,6 @@ bool Homer::Engine::Init(const std::string& title, int w, int h)
 	m_Collide = new Collision();
 	m_Logger = new Console();
 	m_Input = new SDLInput();
-	m_Game->Init(title, w, h);
 
 	Timer = 0;
 	m_IsInit = true;

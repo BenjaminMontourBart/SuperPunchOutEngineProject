@@ -34,7 +34,7 @@ project.isStaticLib = true;
 project.addIncludeDir(path.resolve("./TheEngine/includes"));
 project.addFiles('sources/**','includes/**');
 project.addLib("C:/Program Files (x86)/Visual Leak Detector/lib/Win64/vld");
-project.addIncludeDir("C:/Program Files (x86)/Visual Leak Detector/include");
+//project.addIncludeDir("C:/Program Files (x86)/Visual Leak Detector/include");
 
 project.addProvider(project,false);
 

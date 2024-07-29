@@ -90,6 +90,7 @@ void Homer::WorldService::Update(float dt)
 	{
 		entity->Update(dt);
 	}
+	m_CurrentScene->Update(dt);
 }
 void Homer::WorldService::Draw()
 {

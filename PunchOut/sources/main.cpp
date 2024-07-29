@@ -8,7 +8,7 @@
 
 #ifdef _DEBUG
 
-#include "vld.h"
+//#include "vld.h"
 
 #endif // DEBUG
 
@@ -18,7 +18,7 @@ void InitGameplay()
 {
 	Engine::Get().World().Register("Scene", new Scene());
 	Engine::Get().World().Register("SceneTest", new FightScene());
-	Engine::Get().World().Load("SceneTest");
+	Engine::Get().World().Load("Scene");
 }
 
 INT WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ PSTR, _In_ INT)

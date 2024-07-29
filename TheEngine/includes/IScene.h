@@ -9,10 +9,10 @@ namespace Homer
     public:
         virtual ~IScene() = default;
         virtual void Load() = 0;
+        virtual void Update(float dt) = 0;
 
     protected:
         Entity* m_Entity;
-
         std::vector<Entity*> m_EntityVector;
     };
 }

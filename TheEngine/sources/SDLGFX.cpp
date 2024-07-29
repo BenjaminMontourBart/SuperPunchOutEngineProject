@@ -146,7 +146,22 @@ void Homer::SDLGFX::DrawTexture(size_t id, const RectI& src, const RectF& dst, d
 
 	SDL_Rect Src = { src.x, src.y, src.w, src.h };
 	SDL_Rect Dst = { static_cast<int>(dst.x), static_cast<int>(dst.y), static_cast<int>(dst.w), static_cast<int>(dst.h) };
+
 	SDL_RendererFlip Flip = SDL_FLIP_NONE;
+
+	if (flip.x == false && flip.y == false)
+	{
+		Flip = SDL_FLIP_NONE;
+	}
+	else if (flip.x == true && flip.y == false)
+	{
+		Flip = SDL_FLIP_HORIZONTAL;
+	}
+	else if (flip.x == false && flip.y == true)
+	{
+		Flip = SDL_FLIP_VERTICAL;
+	}
+	
 
 	SDL_GetTextureColorMod(m_TextureCache[id], &r, &g, &b);
 	SDL_GetTextureAlphaMod(m_TextureCache[id], &a);
