@@ -216,22 +216,41 @@ void Homer::Mechant::OnNotify(int value)
 		m_Anim->SetFrame("GetPunch");
 		m_HP -= 10;
 		m_StunTime = 0.5f;
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/AbdoPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 2 && m_TopDef == false && m_Invincible == false)
 	{
 		m_Anim->SetFrame("GetFacePunch");
 		m_HP -= 10;
 		m_StunTime = 0.5f;
+
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/FacePunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 1 && m_TopDef == false && m_Invincible == false)
 	{
 		m_Anim->SetFrame("Block");
 		m_StunTime = 0.3f;
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/BlockPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 2 && m_TopDef == true && m_Invincible == false)
 	{
 		m_Anim->SetFrame("FaceBlock");
 		m_StunTime = 0.3f;
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/BlockPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
+	}
+	else if (m_Invincible == true && value != 3)
+	{
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/MissPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	if (value == 3)
 	{

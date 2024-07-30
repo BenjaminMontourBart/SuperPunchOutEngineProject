@@ -17,7 +17,6 @@ void Player::Start(int x, int y, int w, int h)
 	m_H = static_cast<float>(h);
 
 	m_XStart = m_X;
-	//_SMusic = Engine::Get().Sound().LoadSound("assets/Chipeur.mp3");
 
 	m_entity = Engine::Get().World().Create("Player");
 
@@ -63,7 +62,18 @@ void Player::Update(float dt)
 		m_End = true;
 		Position.Invoke(3);
 		m_Anim->SetFrame("Defeat");
+		if (m_EndEffect == false)
+		{
+			m_EndEffect = true;
+			End("assets/YouAreDown.wav");
+		}
 	}
+	else if (m_EndTimer > 2 && m_EndEffect == false)
+	{
+		m_EndEffect = true;
+		End("assets/GetDown.wav");
+	}
+
 	if (m_End == true)
 	{
 		m_EndTimer += dt;
@@ -72,10 +82,10 @@ void Player::Update(float dt)
 			m_Anim->Play("Win", false);
 		}
 	}
+
 	if (m_EndTimer > 3)
 	{
 		Engine::Get().Sound().StopMusic();
-		Engine::Get().World().Unload();
 		Engine::Get().World().Load("Scene");
 	}
 
@@ -211,34 +221,73 @@ void Player::Draw()
 	size_t _Font = Engine::Get().Gfx().LoadFont("assets/punch-out-nes.ttf", 12);
 	Engine::Get().Gfx().DrawString(std::to_string(m_HP), _Font, 20, 10, Blue);
 }
+
 void Player::OnNotify(int value)
 {
 	if (value == 1 && m_TopDef == true && m_Invincible == false)
 	{
-		m_StunTime = 0.5;
+		m_StunTime = 0.5f;
 		m_Anim->SetFrame("GetDamage");
 		m_HP -= 10;
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/AbdoPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 2 && m_TopDef == false && m_Invincible == false)
 	{
-		m_StunTime = 0.5;
+		m_StunTime = 0.5f;
 		m_Anim->SetFrame("GetDamage");
 		m_HP -= 10;
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/FacePunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 1 && m_TopDef == false && m_Invincible == false)
 	{
-		m_StunTime = 0.2;
+		m_StunTime = 0.2f;
 		m_Anim->SetFrame("StopPunch");
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/BlockPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	else if (value == 2 && m_TopDef == true && m_Invincible == false)
 	{
-		m_StunTime = 0.2;
+		m_StunTime = 0.2f;
 		m_Anim->SetFrame("StopPunchFace");
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/BlockPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
+	}
+	else if (m_Invincible == true && value != 3)
+	{
+		size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/MissPunch.wav");
+		Engine::Get().Sound().SetVolume(m_SMusic, 20);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
 	}
 	if (value == 3)
 	{
 		m_End = true;
 	}
+	HealP.Invoke(m_HP);
+}
+
+void Homer::Player::End(std::string name)
+{
+	if (m_HP > 0)
+	{
+		size_t m_SMusic = Engine::Get().Sound().LoadSound(name);
+		Engine::Get().Sound().SetVolume(m_SMusic, 50);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
+	}
+	else
+	{
+		size_t m_SMusic = Engine::Get().Sound().LoadSound(name);
+		Engine::Get().Sound().SetVolume(m_SMusic, 50);
+		Engine::Get().Sound().PlaySFX(m_SMusic);
+	}
+	size_t m_DMusic = Engine::Get().Sound().LoadSound("assets/KNOCK-OUT.wav");
+	Engine::Get().Sound().SetVolume(m_DMusic, 20);
+	Engine::Get().Sound().PlaySFX(m_DMusic);
 }
 
 

@@ -21,9 +21,12 @@ namespace Homer
         virtual void Update(float dt);
         virtual void Draw();
 
+        void End(std::string name);
+
         void OnNotify(int value) override;
 
         Subject<int> Position;
+        Subject<int> HealP;
 
     private:
 
@@ -52,6 +55,8 @@ namespace Homer
         float m_ActionTime = 0;
         float m_StunTime = 0;
         bool m_Stun = false;
+
+        bool m_EndEffect = false;
 
         bool m_TopPunch = false;
 

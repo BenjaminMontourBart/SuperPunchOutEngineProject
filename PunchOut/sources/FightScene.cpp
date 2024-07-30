@@ -11,7 +11,7 @@ FightScene::~FightScene()
 
 void FightScene::Load()
 {
-
+	entity.clear();
 	m_EntityVector.clear();
 
 	entity.push_back(Engine::Get().World().Create("BackGround"));
@@ -44,6 +44,11 @@ void FightScene::Load()
 
 	size_t _BMusic = Engine::Get().Sound().LoadMusic("assets/Tutorial.mp3");
 	Engine::Get().Sound().PlayMusic(_BMusic);
+
+
+	size_t m_SMusic = Engine::Get().Sound().LoadSound("assets/Fight.mp3");
+	Engine::Get().Sound().SetVolume(m_SMusic, 200);
+	Engine::Get().Sound().PlaySFX(m_SMusic);
 
 }
 

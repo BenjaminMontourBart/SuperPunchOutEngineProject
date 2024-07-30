@@ -7,12 +7,12 @@ using namespace Homer;
 
 Scene::~Scene()
 {
-
+	
 }
 
 void Scene::Load()
 {
-
+	entity.clear();
 	m_EntityVector.clear();
 
 	entity.push_back(Engine::Get().World().Create("BackGround"));
