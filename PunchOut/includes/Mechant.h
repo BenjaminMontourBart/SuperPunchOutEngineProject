@@ -22,6 +22,7 @@ namespace Homer
         virtual void Draw();
   
         void OnNotify(int value) override;
+        void Attack(int invoke = 0);
 
         Subject<int> Position;
 
@@ -46,6 +47,13 @@ namespace Homer
         bool m_Idle = false;
         bool m_Attack = false;
         bool m_Music = false;
+        bool AnimPlay = false;
+        float AnimWaitTime = 0;
+        bool m_End = false;
+        bool m_Stun = false;
+        float m_StunTime = 0;
+
+        bool m_DealDamage = false;
     };
 }
 

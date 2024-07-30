@@ -44,7 +44,16 @@ namespace Homer
         bool m_Invincible = false;
         int m_HP = 100;
         float m_EndTimer = 0;
+        bool m_Idle = false;
         bool m_Attack = false;
+        bool m_Dodge = false;
+        bool m_DodgeLeft = false;
+        float m_DodgeTimer = 0;
+        float m_ActionTime = 0;
+        float m_StunTime = 0;
+        bool m_Stun = false;
+
+        bool m_TopPunch = false;
 
         bool m_End = false;
     };

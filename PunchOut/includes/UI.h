@@ -15,6 +15,7 @@ namespace Homer
         UI(Entity* parent) : Component(parent) {}
         virtual void Update(float dt);
 
+
     private:
     };
 }
